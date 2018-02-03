@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlmap xmlns="http://www.example.org/sqlmap"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://www.epril.com/sqlmap ../../../../../sqlmap.xsd ">
+
+	<!-- User sql  -->
+	<sql key = "insertUser">INSERT INTO USER(USER_KEY,STATUS,SUB_STATUS) VALUES (?,?,?)</sql>
+	<sql key = "selectUser">SELECT USER_KEY, STATUS, SUB_STATUS, (SELECT DATE_FORMAT(MAX(REQ_TIME),'%Y%m%d%H%i%s') FROM USER_DATA WHERE USER_KEY = ?) AS LAST_REQ_TIME FROM USER WHERE USER_KEY = ?</sql>
+	<sql key = "getUserCount">SELECT COUNT(*) CNT FROM USER</sql>
+	<sql key = "deleteAllUser">DELETE FROM USER</sql>
+	
+	<!-- UserData sql  -->
+	
+	<sql key = "insertUserData">INSERT INTO USER_DATA(USER_KEY,TYPE,CONTENTS,REQ_TIME) VALUES (?,?,?,SYSDATE())</sql>
+	<sql key = "getUserDataCount">SELECT COUNT(*) CNT FROM USER_DATA</sql>
+	<sql key = "deleteAllUserData">DELETE FROM USER_DATA</sql>
+</sqlmap>
