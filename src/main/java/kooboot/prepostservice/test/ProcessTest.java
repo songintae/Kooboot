@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.UnexpectedRollbackException;
 
 import kooboot.appcontext.AppContext;
+import kooboot.prepostservice.implement.PostProcessService;
 import kooboot.prepostservice.implement.PreProcessService;
 import kooboot.request.domain.RequestMessage;
 import kooboot.user.dao.definition.UserDao;
@@ -32,8 +34,13 @@ public class ProcessTest{
 	
 	PreProcessService preProcess;
 	
+	@Autowired
+	PostProcessService postProcess;
+	
 	static User user1;
 	static User user2;
+	UserData userData1;
+	UserData userData2;
 	
 	@Before
 	public void setUp(){
@@ -53,6 +60,20 @@ public class ProcessTest{
 		Date reqTime2 = new Date();
 		reqTime2.setMinutes(reqTime2.getMinutes()-4);
 		user2.setLastReqTime(DateUtil.getDateYyyymmddhhmmss(reqTime2));
+		
+		
+		userData1 = new UserData();
+		userData1.setUserKey(user1.getUserKey());
+		userData1.setType("text");
+		userData1.setContents("key1Test");
+		
+		userData2 = new UserData();
+		userData2.setUserKey(user2.getUserKey());
+		userData2.setType("button");
+		userData2.setContents("key2Test");
+		
+		user1.setReqUserData(userData1);
+		user2.setReqUserData(userData2);
 	}
 	
 	public static class TestUserService extends BasicUserService{
@@ -82,6 +103,13 @@ public class ProcessTest{
 		User getUser3 = preProcess.preProcess(new RequestMessage("key3","text","test3"));
 		checkPreProcess(getUser3,StatusCode.INIT);
 	}
+	
+	@Test
+	public void trasactionRollbackTest(){
+		postProcess.postProcess(user1);
+		postProcess.postProcess(user1);
+	}
+	
 	
 	private void checkPreProcess(User checkUser, StatusCode expectedStatusCode){
 		assertThat(checkUser.getStatus().getStatusCode(),is(expectedStatusCode));

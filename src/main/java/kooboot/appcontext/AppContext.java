@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mysql.jdbc.Driver;
 
+import kooboot.prepostservice.implement.PostProcessService;
 import kooboot.prepostservice.implement.PreProcessService;
 import kooboot.sqlservice.definition.SqlService;
 import kooboot.user.dao.definition.UserDao;
@@ -38,6 +39,15 @@ public class AppContext {
 	
 	@Autowired
 	SqlService sqlService;
+	
+	
+	@Bean
+	public PostProcessService postProcessService(){
+		PostProcessService postProcess = new PostProcessService();
+		postProcess.setUserService(userService());
+		return postProcess;
+	}
+	
 	
 	@Bean
 	public PreProcessService preProcessService(){
