@@ -26,6 +26,7 @@ import kooboot.user.domain.UserData;
 import kooboot.user.domain.status.Status;
 import kooboot.user.domain.status.StatusCode;
 import kooboot.user.service.implement.BasicUserService;
+import kooboot.util.Constant;
 import kooboot.util.DateUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -108,6 +109,17 @@ public class ProcessTest{
 	public void trasactionRollbackTest(){
 		postProcess.postProcess(user1);
 		postProcess.postProcess(user1);
+	}
+	
+	@Test
+	public void keyboardByPassCheck(){
+		 UserData testData = new UserData();
+		 testData.setType("tpye");
+		 testData.setContents(Constant.INIT_KEYBOARD_BUTTON_ONE);
+		 user1.setReqUserData(testData);
+		 assertThat(true, is(preProcess.keyboardByPassCheck(user1)));
+		 testData.setContents("취소");
+		 assertThat(false, is(preProcess.keyboardByPassCheck(user1)));
 	}
 	
 	

@@ -31,7 +31,7 @@ public class MessageController {
 		User user = preProcessService.preProcess(requestMessage);
 		postProcessService.postProcess(user);
 		Message message = new Message();
-		message.setText(requestMessage.getUser_key());
+		message.setText(user.getStatus().getStatusCode().getValue());
 		ResponseMessage responseMessage = new ResponseMessage(message,null);
 		return responseMessage;
 	}

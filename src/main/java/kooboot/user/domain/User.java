@@ -1,6 +1,8 @@
 package kooboot.user.domain;
 
 import kooboot.user.domain.status.Status;
+import kooboot.user.domain.status.StatusCode;
+import kooboot.util.Constant;
 
 public class User {
 	
@@ -42,6 +44,20 @@ public class User {
 	}
 	public void setLastReqTime(String lastReqTime) {
 		this.lastReqTime = lastReqTime;
+	}
+	
+	public void setUserStatus(){
+		switch(getReqUserData().getContents()){
+			case Constant.INIT_KEYWORD :
+				setStatus(new Status(StatusCode.INIT));
+				break;
+			case Constant.INIT_KEYBOARD_BUTTON_ONE :
+				setStatus(new Status(StatusCode.TRANSLATE));
+				break;
+			case Constant.INIT_KEYBOARD_BUTTON_TWO : 
+				setStatus(new Status(StatusCode.WEATHER));
+				break;
+		}
 	}
 
 }

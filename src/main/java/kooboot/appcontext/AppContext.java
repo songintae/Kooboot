@@ -33,9 +33,9 @@ import kooboot.user.service.implement.BasicUserService;
 public class AppContext {
 	
 	@Value("${db.driverClass}") Class<? extends Driver> driverClass;
-	@Value("${db.testurl}") String url;
-	@Value("${db.testusername}") String username;
-	@Value("${db.testpassword}") String password;
+	@Value("${db.url}") String url;
+	@Value("${db.username}") String username;
+	@Value("${db.password}") String password;
 	
 	@Autowired
 	SqlService sqlService;

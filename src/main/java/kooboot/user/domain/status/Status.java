@@ -7,6 +7,7 @@ import kooboot.user.domain.substatus.SubStatus;
 import kooboot.user.domain.substatus.TranslateSubStatus;
 import kooboot.user.domain.substatus.WeatherStatus;
 import kooboot.user.exception.NotExistStatusException;
+import kooboot.util.StringUtil;
 
 public class Status {
 	
@@ -34,7 +35,8 @@ public class Status {
 	}
 	
 	public void setSubStatus(String subStatusValue){
-		this.subStatus.setStatusCode(subStatusValue);
+		
+		this.subStatus.setStatusCode(StringUtil.isEmpty(subStatusValue) ? "0" : subStatusValue);
 	}
 	
 	public SubStatus getSubStatus(){

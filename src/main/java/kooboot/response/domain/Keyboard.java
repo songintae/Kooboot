@@ -26,6 +26,8 @@ public class Keyboard {
 
 	public void setType(String type) {
 		this.type = type;
+		if("buttons".equals(type))
+			this.buttons = new ArrayList<String>();
 	}
 
 	public List<String> getButtons() {
