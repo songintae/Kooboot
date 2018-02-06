@@ -15,8 +15,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mysql.jdbc.Driver;
 
-import kooboot.prepostservice.implement.PostProcessService;
-import kooboot.prepostservice.implement.PreProcessService;
+import kooboot.httpservice.domain.HttpService;
+import kooboot.httpservice.implement.UrlHttpService;
+import kooboot.httpservice.implement.UrlHttpTemplate;
+import kooboot.prepost.implement.PostProcessService;
+import kooboot.prepost.implement.PreProcessService;
 import kooboot.sqlservice.definition.SqlService;
 import kooboot.user.dao.definition.UserDao;
 import kooboot.user.dao.definition.UserDataDao;
@@ -40,6 +43,11 @@ public class AppContext {
 	@Autowired
 	SqlService sqlService;
 	
+	@Bean HttpService httpService(){
+		UrlHttpService httpService = new UrlHttpService();
+		httpService.setUrlHttpTemplate(new UrlHttpTemplate());
+		return httpService;
+	}
 	
 	@Bean
 	public PostProcessService postProcessService(){

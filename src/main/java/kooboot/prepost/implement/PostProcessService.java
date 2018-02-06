@@ -1,4 +1,4 @@
-package kooboot.prepostservice.implement;
+package kooboot.prepost.implement;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.transaction.UnexpectedRollbackException;

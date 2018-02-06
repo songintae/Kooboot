@@ -1,4 +1,4 @@
-package kooboot.prepostservice.test;
+package kooboot.prepost.test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -16,8 +16,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.UnexpectedRollbackException;
 
 import kooboot.appcontext.AppContext;
-import kooboot.prepostservice.implement.PostProcessService;
-import kooboot.prepostservice.implement.PreProcessService;
+import kooboot.prepost.implement.PostProcessService;
+import kooboot.prepost.implement.PreProcessService;
 import kooboot.request.domain.RequestMessage;
 import kooboot.user.dao.definition.UserDao;
 import kooboot.user.dao.definition.UserDataDao;

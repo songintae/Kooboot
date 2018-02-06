@@ -1,4 +1,4 @@
-package kooboot.prepostservice.implement;
+package kooboot.prepost.implement;
 
 import java.util.Date;
 

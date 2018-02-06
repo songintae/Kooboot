@@ -3,8 +3,8 @@ package kooboot.process.implement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
-import kooboot.prepostservice.implement.PostProcessService;
-import kooboot.prepostservice.implement.PreProcessService;
+import kooboot.prepost.implement.PostProcessService;
+import kooboot.prepost.implement.PreProcessService;
 import kooboot.process.domain.KakaoStrategy;
 import kooboot.process.domain.StrategyResult;
 import kooboot.process.exception.NotSupportedServiceException;
@@ -27,6 +27,8 @@ public class KakaoContext {
 	@Autowired 
 	private PostProcessService postProcess;
 	
+	private KakaoStrategy strategy;
+	
 	public ResponseMessage KakaoProcessTemplate(RequestMessage requestMessage){
 		User user = null;
 		StrategyResult result = null;
@@ -43,9 +45,10 @@ public class KakaoContext {
 	}
 	
 	private StrategyResult doStretegyProcess(User user){
-		return initializeStrategy(user).doProcessSerivce(user);
+		initializeStrategy(user);
+		return strategy.doProcessSerivce(user);
 	}
-	private KakaoStrategy initializeStrategy(User user){
+	private void initializeStrategy(User user){
 		String beanName = "";
 		if(StatusCode.INIT == user.getStatus().getStatusCode())
 			beanName = "initStrategy";
@@ -56,7 +59,7 @@ public class KakaoContext {
 		else
 			throw new AssertionError("Unknown value: " + user.getStatus().getStatusCode().getValue());
 		
-		return appContext.getBean(beanName,KakaoStrategy.class);
+		strategy =appContext.getBean(beanName,KakaoStrategy.class);
 	}
 	
 	private ResponseMessage notSupportedServiceResponse(){

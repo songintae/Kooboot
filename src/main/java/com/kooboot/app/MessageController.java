@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kooboot.prepostservice.implement.PostProcessService;
-import kooboot.prepostservice.implement.PreProcessService;
+import kooboot.prepost.implement.PostProcessService;
+import kooboot.prepost.implement.PreProcessService;
 import kooboot.request.domain.RequestMessage;
 import kooboot.response.domain.Message;
 import kooboot.response.domain.ResponseMessage;
