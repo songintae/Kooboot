@@ -10,7 +10,10 @@ public interface UserService {
 	@Transactional(readOnly=true)
 	public User getUser(String userKey);
 	@Transactional
-	public void addUser(User user);
+	public void  addUserAndData(User user);
 	@Transactional
-	public void addUserData(UserData userData);
+	public void  updateUserAndData(User user);
+	
+
+	
 }

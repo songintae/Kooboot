@@ -76,6 +76,15 @@ public class JdbcUserDao implements UserDao {
 		jdbcTemplate.update(sqlService.getSql("deleteAllUser"));
 		
 	}
+
+	@Override
+	public void updatdUser(User user) {
+		// TODO Auto-generated method stub
+		jdbcTemplate.update(sqlService.getSql("updateUser"),
+				user.getStatus().getStatusCode().getValue(),
+				user.getStatus().getSubStatus().getStatusValue(),
+				user.getUserKey());
+	}
 	
 	
 

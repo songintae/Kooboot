@@ -6,8 +6,10 @@
 	<!-- User sql  -->
 	<sql key = "insertUser">INSERT INTO USER(USER_KEY,STATUS,SUB_STATUS) VALUES (?,?,?)</sql>
 	<sql key = "selectUser">SELECT USER_KEY, STATUS, SUB_STATUS, (SELECT DATE_FORMAT(MAX(REQ_TIME),'%Y%m%d%H%i%s') FROM USER_DATA WHERE USER_KEY = ?) AS LAST_REQ_TIME FROM USER WHERE USER_KEY = ?</sql>
+	<sql key = "updateUser">UPDATE USER SET STATUS = ? , SUB_STATUS = ? WHERE USER_KEY = ?</sql>
 	<sql key = "getUserCount">SELECT COUNT(*) CNT FROM USER</sql>
 	<sql key = "deleteAllUser">DELETE FROM USER</sql>
+	
 	
 	<!-- UserData sql  -->
 	

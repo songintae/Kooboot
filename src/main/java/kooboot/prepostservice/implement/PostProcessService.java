@@ -18,10 +18,9 @@ public class PostProcessService {
 	
 	public void postProcess(User user){
 		try{
-			userService.addUser(user);
-			userService.addUserData(user.getReqUserData());
+			userService.addUserAndData(user);
 		}catch(DuplicateKeyException e){
-			userService.addUserData(user.getReqUserData());
+			userService.updateUserAndData(user);
 		}
 	}
 }
