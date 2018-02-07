@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -21,6 +22,8 @@ import kooboot.httpservice.implement.UrlHttpTemplate;
 import kooboot.prepost.implement.PostProcessService;
 import kooboot.prepost.implement.PreProcessService;
 import kooboot.sqlservice.definition.SqlService;
+import kooboot.translate.domain.TranslateService;
+import kooboot.translate.implement.PapagoService;
 import kooboot.user.dao.definition.UserDao;
 import kooboot.user.dao.definition.UserDataDao;
 import kooboot.user.dao.implement.JdbcUserDao;
@@ -32,7 +35,11 @@ import kooboot.user.service.implement.BasicUserService;
 @ComponentScan(basePackages="kooboot")
 @EnableSqlService
 @EnableTransactionManagement
-@PropertySource("classpath:kooboot/appcontext/database.properties")
+@PropertySources({
+	@PropertySource("classpath:kooboot/appcontext/database.properties"),
+	@PropertySource("classpath:kooboot/translate/domain/serviceinfo.properties")
+})
+
 public class AppContext {
 	
 	@Value("${db.driverClass}") Class<? extends Driver> driverClass;
@@ -40,10 +47,19 @@ public class AppContext {
 	@Value("${db.username}") String username;
 	@Value("${db.password}") String password;
 	
+	
 	@Autowired
 	SqlService sqlService;
 	
-	@Bean HttpService httpService(){
+	@Bean
+	public TranslateService translateService(){
+		PapagoService papagoService = new PapagoService();
+		papagoService.setHttpService(httpService());
+		return papagoService;
+	}
+	
+	@Bean
+	public HttpService httpService(){
 		UrlHttpService httpService = new UrlHttpService();
 		httpService.setUrlHttpTemplate(new UrlHttpTemplate());
 		return httpService;

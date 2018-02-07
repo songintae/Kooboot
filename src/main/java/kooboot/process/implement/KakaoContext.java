@@ -51,7 +51,7 @@ public class KakaoContext {
 	private void initializeStrategy(User user){
 		String beanName = "";
 		if(StatusCode.INIT == user.getStatus().getStatusCode())
-			beanName = "initStrategy";
+			beanName = "initialstateStategy";
 		else if(StatusCode.TRANSLATE == user.getStatus().getStatusCode())
 			beanName = "translateStrategy";
 		else if(StatusCode.WEATHER == user.getStatus().getStatusCode())
