@@ -19,8 +19,11 @@ import com.mysql.jdbc.Driver;
 import kooboot.httpservice.domain.HttpService;
 import kooboot.httpservice.implement.UrlHttpService;
 import kooboot.httpservice.implement.UrlHttpTemplate;
+import kooboot.initialstate.implement.initialstateStategy;
 import kooboot.prepost.implement.PostProcessService;
 import kooboot.prepost.implement.PreProcessService;
+import kooboot.process.domain.KakaoStrategy;
+import kooboot.process.implement.KakaoContext;
 import kooboot.sqlservice.definition.SqlService;
 import kooboot.translate.domain.TranslateService;
 import kooboot.translate.implement.PapagoService;
@@ -50,6 +53,17 @@ public class AppContext {
 	
 	@Autowired
 	SqlService sqlService;
+	
+	@Bean
+	public KakaoContext kakaoContext(){
+		return new KakaoContext();
+	}
+	
+	
+	@Bean
+	public KakaoStrategy initialstateStategy(){
+		return new initialstateStategy();
+	}
 	
 	@Bean
 	public TranslateService translateService(){

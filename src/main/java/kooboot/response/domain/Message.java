@@ -8,6 +8,10 @@ public class Message {
 	public Message(){
 		
 	}
+	
+	public Message(String text){
+		this.text = text;
+	}
 
 	public Message(String text, MessageButton messageButton, Photo photo) {
 		this.text = text;

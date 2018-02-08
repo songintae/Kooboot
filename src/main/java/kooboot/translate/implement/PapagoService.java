@@ -44,10 +44,10 @@ public class PapagoService implements TranslateService {
 	}
 	
 	@Override
-	public String translateSentence(TranslateCode translateCode, String sentence) {
+	public String translateSentence(String source , String target, String sentence) {
 		// TODO Auto-generated method stub
-		param.put("source", translateCode.getSource());
-		param.put("target", translateCode.getTarget());
+		param.put("source", source);
+		param.put("target", target);
 		param.put("text", sentence);
 		return parseResponse(httpService.doHttpPostByUrlencoded(translateUrl, header, param)).getTranslatedText();
 	}

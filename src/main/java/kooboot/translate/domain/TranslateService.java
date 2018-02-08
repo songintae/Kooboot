@@ -1,5 +1,5 @@
 package kooboot.translate.domain;
 
 public interface TranslateService {
-	public String translateSentence(TranslateCode translateCode , String sentence);
+	public String translateSentence(String source , String target , String sentence);
 }

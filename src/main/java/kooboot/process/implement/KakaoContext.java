@@ -33,7 +33,7 @@ public class KakaoContext {
 		User user = null;
 		StrategyResult result = null;
 		try{
-			preProcess.preProcess(requestMessage);
+			user = preProcess.preProcess(requestMessage);
 			result = doStretegyProcess(user);
 			return result.getResponseMessage();
 		}catch(NotSupportedServiceException e){
@@ -50,14 +50,14 @@ public class KakaoContext {
 	}
 	private void initializeStrategy(User user){
 		String beanName = "";
-		if(StatusCode.INIT == user.getStatus().getStatusCode())
+		if(StatusCode.INIT == user.getStatusCode())
 			beanName = "initialstateStategy";
-		else if(StatusCode.TRANSLATE == user.getStatus().getStatusCode())
+		else if(StatusCode.TRANSLATE == user.getStatusCode())
 			beanName = "translateStrategy";
-		else if(StatusCode.WEATHER == user.getStatus().getStatusCode())
+		else if(StatusCode.WEATHER == user.getStatusCode())
 			beanName = "weatherStrategy";
 		else
-			throw new AssertionError("Unknown value: " + user.getStatus().getStatusCode().getValue());
+			throw new AssertionError("Unknown value: " + user.getStatusCode().getValue());
 		
 		strategy =appContext.getBean(beanName,KakaoStrategy.class);
 	}

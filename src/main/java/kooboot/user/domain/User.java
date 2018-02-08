@@ -26,6 +26,14 @@ public class User {
 	public void setUserKey(String userKey) {
 		this.userKey = userKey;
 	}
+	
+	public StatusCode getStatusCode(){
+		return this.getStatus().getStatusCode();
+	}
+	public String getSubStatusValue(){
+		return this.getStatus().getSubStatus().getStatusValue();
+	}
+	
 	public Status getStatus() {
 		return status;
 	}
@@ -59,5 +67,7 @@ public class User {
 				break;
 		}
 	}
+	
+
 
 }

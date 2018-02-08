@@ -46,8 +46,8 @@ public class JdbcUserDao implements UserDao {
 		// TODO Auto-generated method stub
 		jdbcTemplate.update(sqlService.getSql("insertUser"),
 				user.getUserKey(),
-				user.getStatus().getStatusCode().getValue(),
-				user.getStatus().getSubStatus().getStatusValue());
+				user.getStatusCode().getValue(),
+				user.getSubStatusValue());
 		
 	}
 
