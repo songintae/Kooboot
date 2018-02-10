@@ -25,7 +25,8 @@ public class JdbcUserDao implements UserDao {
 			// TODO Auto-generated method stub
 			User user = new User();
 			user.setUserKey(rs.getString("USER_KEY"));
-			user.setStatus(new Status(StatusCode.valueOfCode(rs.getString("STATUS")),rs.getString("SUB_STATUS")));
+			user.setStatus(StatusCode.valueOfCode(rs.getString("STATUS")));
+			user.setSubStatus(rs.getString("SUB_STATUS"));
 			user.setLastReqTime(rs.getString("LAST_REQ_TIME"));
 			return user;
 		}};
@@ -81,8 +82,8 @@ public class JdbcUserDao implements UserDao {
 	public void updatdUser(User user) {
 		// TODO Auto-generated method stub
 		jdbcTemplate.update(sqlService.getSql("updateUser"),
-				user.getStatus().getStatusCode().getValue(),
-				user.getStatus().getSubStatus().getStatusValue(),
+				user.getStatusCode().getValue(),
+				user.getSubStatusValue(),
 				user.getUserKey());
 	}
 	

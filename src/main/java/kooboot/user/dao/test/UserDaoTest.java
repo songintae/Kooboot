@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kooboot.appcontext.AppContext;
+import kooboot.translate.domain.TranslateCode;
 import kooboot.user.dao.definition.UserDao;
 import kooboot.user.dao.definition.UserDataDao;
 import kooboot.user.domain.User;
@@ -42,12 +43,12 @@ public class UserDaoTest {
 		userDao.deleteAll();
 		user1 = new User();
 		user1.setUserKey("key1");
-		user1.setStatus(new Status(StatusCode.INIT));
+		user1.setStatus(StatusCode.INIT);
 		
 		user2 = new User();
 		user2.setUserKey("key2");
-		user2.setStatus(new Status(StatusCode.TRANSLATE,"1"));
-		
+		user2.setStatus(StatusCode.TRANSLATE);
+		user2.setSubStatus(TranslateCode.KO_TO_EN.getValue());
 		userData1 = new UserData();
 		userData1.setUserKey(user1.getUserKey());
 		userData1.setType("text");
@@ -108,8 +109,8 @@ public class UserDaoTest {
 	
 	private void checkSameUser(User expectedUser , User checkUser){
 		assertThat(expectedUser.getUserKey(),is(checkUser.getUserKey()));
-		assertThat(expectedUser.getStatus().getStatusCode(),is(checkUser.getStatus().getStatusCode()));
-		assertThat(expectedUser.getStatus().getSubStatus().getStatusValue(),is(checkUser.getStatus().getSubStatus().getStatusValue()));
+		assertThat(expectedUser.getStatusCode(),is(checkUser.getStatusCode()));
+		assertThat(expectedUser.getSubStatusValue(),is(checkUser.getSubStatusValue()));
 	}
 	
 }

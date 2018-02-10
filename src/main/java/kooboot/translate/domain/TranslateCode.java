@@ -1,7 +1,8 @@
 package kooboot.translate.domain;
 
 public enum TranslateCode {
-	INIT("","","0"), KO_TO_EN("ko","en","1"), KO_TO_JA("ko","ja","2"), KO_TO_CN("ko","zh-CN","3"),
+	INIT("","","I"), REQ("","","R"),
+	KO_TO_EN("ko","en","1"), KO_TO_JA("ko","ja","2"), KO_TO_CN("ko","zh-CN","3"),
 	EN_TO_KO("en","ko","4"), JA_TO_KO("ja","ko","5"),CN_TO_KO("zh-CN","ko","6");
 	
 	private final String source;
@@ -27,7 +28,8 @@ public enum TranslateCode {
 	}
 	public static TranslateCode valueOfCode(String value){
 		switch(value){
-			case "0" : return INIT;
+			case "I" : return INIT;
+			case "R" : return REQ;
 			case "1" : return KO_TO_EN;
 			case "2" : return KO_TO_JA;
 			case "3" : return KO_TO_CN;

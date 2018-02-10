@@ -10,7 +10,7 @@ import kooboot.response.domain.ResponseMessage;
 import kooboot.user.domain.User;
 import kooboot.util.Constant;
 
-public class initialstateStategy implements KakaoStrategy {
+public class InitialstateStrategy implements KakaoStrategy {
 	public final String INITIAL_DELAY_TEXT = "입력시간 5분이 경과했습니다. 처음부터 다시 시작해주세요.";
 	@Override
 	public StrategyResult doProcessSerivce(User user) {

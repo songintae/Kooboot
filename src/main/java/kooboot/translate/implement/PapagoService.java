@@ -15,6 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import kooboot.httpservice.domain.HttpService;
+import kooboot.translate.domain.PapagoResponse;
 import kooboot.translate.domain.TranslateCode;
 import kooboot.translate.domain.TranslateService;
 import kooboot.translate.exception.TranslateException;

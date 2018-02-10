@@ -28,6 +28,7 @@ public class KakaoContext {
 	private PostProcessService postProcess;
 	
 	private KakaoStrategy strategy;
+	private final String NOT_SUPPROTED_SERVICE_TEXT = "이 기능은 지원하지 않는 기능입니다.\n 처음부터 다시 시작해 주십시오.";
 	
 	public ResponseMessage KakaoProcessTemplate(RequestMessage requestMessage){
 		User user = null;
@@ -35,12 +36,13 @@ public class KakaoContext {
 		try{
 			user = preProcess.preProcess(requestMessage);
 			result = doStretegyProcess(user);
+			user = result.getUser();
 			return result.getResponseMessage();
 		}catch(NotSupportedServiceException e){
-			user.setStatus(new Status(StatusCode.INIT));
+			user.setStatus(StatusCode.INIT);
 			return notSupportedServiceResponse();
 		}finally{
-			postProcess.postProcess(result.getUser());
+			postProcess.postProcess(user);
 		}
 	}
 	
@@ -51,20 +53,20 @@ public class KakaoContext {
 	private void initializeStrategy(User user){
 		String beanName = "";
 		if(StatusCode.INIT == user.getStatusCode())
-			beanName = "initialstateStategy";
+			beanName = "initialstateStrategy";
 		else if(StatusCode.TRANSLATE == user.getStatusCode())
 			beanName = "translateStrategy";
 		else if(StatusCode.WEATHER == user.getStatusCode())
 			beanName = "weatherStrategy";
 		else
-			throw new AssertionError("Unknown value: " + user.getStatusCode().getValue());
+			throw new NotSupportedServiceException();
 		
 		strategy =appContext.getBean(beanName,KakaoStrategy.class);
 	}
 	
 	private ResponseMessage notSupportedServiceResponse(){
 		Message message = new Message();
-		message.setText("이 기능은 지원하지 않는 기능입니다. 처음부터 다시 시작해 주십시오.");
+		message.setText(NOT_SUPPROTED_SERVICE_TEXT);
 		Keyboard keyboard = new Keyboard();
 		keyboard.setType("buttons");
 		keyboard.addButton(Constant.INIT_KEYBOARD_BUTTON_ONE);

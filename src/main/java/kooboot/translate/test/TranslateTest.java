@@ -12,9 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.google.gson.Gson;
 
 import kooboot.appcontext.AppContext;
+import kooboot.translate.domain.PapagoResponse;
 import kooboot.translate.domain.TranslateCode;
 import kooboot.translate.domain.TranslateService;
-import kooboot.translate.implement.PapagoResponse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=AppContext.class)

@@ -28,17 +28,18 @@ public class User {
 	}
 	
 	public StatusCode getStatusCode(){
-		return this.getStatus().getStatusCode();
+		return this.status.getStatusCode();
 	}
 	public String getSubStatusValue(){
-		return this.getStatus().getSubStatus().getStatusValue();
+		return this.status.getSubStatus().getStatusValue();
 	}
 	
-	public Status getStatus() {
-		return status;
+	public void setStatus(StatusCode statusCode){
+		this.status = new Status(statusCode);
 	}
-	public void setStatus(Status status) {
-		this.status = status;
+	
+	public void setSubStatus(String subStatusValue) throws AssertionError{
+		this.status.setSubStatus(subStatusValue);
 	}
 	
 	public UserData getReqUserData() {
@@ -57,13 +58,13 @@ public class User {
 	public void setUserStatus(){
 		switch(getReqUserData().getContents()){
 			case Constant.INIT_KEYWORD :
-				setStatus(new Status(StatusCode.INIT));
+				setStatus(StatusCode.INIT);
 				break;
 			case Constant.INIT_KEYBOARD_BUTTON_ONE :
-				setStatus(new Status(StatusCode.TRANSLATE));
+				setStatus(StatusCode.TRANSLATE);
 				break;
 			case Constant.INIT_KEYBOARD_BUTTON_TWO : 
-				setStatus(new Status(StatusCode.WEATHER));
+				setStatus(StatusCode.WEATHER);
 				break;
 		}
 	}

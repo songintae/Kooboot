@@ -1,4 +1,4 @@
-package kooboot.translate.implement;
+package kooboot.translate.domain;
 
 import java.util.HashMap;
 import java.util.Map;

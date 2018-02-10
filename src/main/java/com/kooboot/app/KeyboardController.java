@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kooboot.initialstate.implement.initialstateStategy;
+import kooboot.initialstate.implement.InitialstateStrategy;
 import kooboot.response.domain.Keyboard;
 import kooboot.util.Constant;
 
@@ -16,6 +16,6 @@ import kooboot.util.Constant;
 public class KeyboardController {
 	@RequestMapping(value = "/keyboard", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
 	public @ResponseBody Keyboard keyboard() throws Exception { 
-		return initialstateStategy.getinitialKeyboard();
+		return InitialstateStrategy.getinitialKeyboard();
 	}
 }

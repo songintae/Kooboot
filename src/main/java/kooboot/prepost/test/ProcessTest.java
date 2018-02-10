@@ -50,14 +50,15 @@ public class ProcessTest{
 		preProcess.setUserService(new TestUserService());
 		user1 = new User();
 		user1.setUserKey("key1");
-		user1.setStatus(new Status(StatusCode.INIT));
+		user1.setStatus(StatusCode.INIT);
 		Date reqTime1 = new Date();
 		reqTime1.setMinutes(reqTime1.getMinutes()-5);
 		user1.setLastReqTime(DateUtil.getDateYyyymmddhhmmss(reqTime1));
 		
 		user2 = new User();
 		user2.setUserKey("key2");
-		user2.setStatus(new Status(StatusCode.TRANSLATE,"1"));
+		user2.setStatus(StatusCode.TRANSLATE);
+		user2.setSubStatus("1");
 		Date reqTime2 = new Date();
 		reqTime2.setMinutes(reqTime2.getMinutes()-4);
 		user2.setLastReqTime(DateUtil.getDateYyyymmddhhmmss(reqTime2));
@@ -124,6 +125,6 @@ public class ProcessTest{
 	
 	
 	private void checkPreProcess(User checkUser, StatusCode expectedStatusCode){
-		assertThat(checkUser.getStatus().getStatusCode(),is(expectedStatusCode));
+		assertThat(checkUser.getStatusCode(),is(expectedStatusCode));
 	}
 }

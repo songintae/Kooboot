@@ -23,6 +23,7 @@ public class PreProcessService {
 	}
 	
 	public User preProcess(RequestMessage message){
+		
 		User user = initializeUser(message);
 		user.setUserStatus();
 		return user;
@@ -38,12 +39,14 @@ public class PreProcessService {
 			user.setReqUserData(reqUserData);
 			
 			if(delayRequestCheck(user.getLastReqTime())){
-				if(keyboardByPassCheck(user))
-					user.setStatus(new Status(StatusCode.INIT,Initialstate.INIT.getValue()));
-				else					
-					user.setStatus(new Status(StatusCode.INIT,Initialstate.DELAY.getValue()));
+				user.setStatus(StatusCode.INIT);
+				if(keyboardByPassCheck(user))	
+					user.setSubStatus(Initialstate.INIT.getValue());
+				else			
+					user.setSubStatus(Initialstate.DELAY.getValue());
+
 			}
-				
+			
 		}catch(EmptyResultDataAccessException e){
 			user = new User(message.getUser_key(),
 					new Status(StatusCode.INIT),
