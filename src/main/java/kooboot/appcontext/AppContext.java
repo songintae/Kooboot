@@ -24,6 +24,8 @@ import kooboot.prepost.implement.PostProcessService;
 import kooboot.prepost.implement.PreProcessService;
 import kooboot.process.domain.KakaoStrategy;
 import kooboot.process.implement.KakaoContext;
+import kooboot.search.domain.KakaoSearchService;
+import kooboot.search.implement.KeywordSearchService;
 import kooboot.search.implement.SearchStrategy;
 import kooboot.sqlservice.definition.SqlService;
 import kooboot.translate.domain.TranslateService;
@@ -42,7 +44,8 @@ import kooboot.user.service.implement.BasicUserService;
 @EnableTransactionManagement
 @PropertySources({
 	@PropertySource("classpath:kooboot/appcontext/database.properties"),
-	@PropertySource("classpath:kooboot/translate/domain/serviceinfo.properties")
+	@PropertySource("classpath:kooboot/translate/domain/serviceinfo.properties"),
+	@PropertySource("classpath:kooboot/search/domain/serviceinfo.properties")
 })
 
 public class AppContext {
@@ -71,6 +74,12 @@ public class AppContext {
 	public KakaoStrategy searchStrategy(){
 		SearchStrategy searchStrategy = new SearchStrategy();
 		return searchStrategy;
+	}
+	
+	@Bean KakaoSearchService keywordSearchService(){
+		KeywordSearchService keywordSearchService = new KeywordSearchService();
+		keywordSearchService.setHttpService(httpService());
+		return keywordSearchService;
 	}
 	
 	@Bean

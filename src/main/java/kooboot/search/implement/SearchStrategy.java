@@ -23,10 +23,10 @@ public class SearchStrategy implements KakaoStrategy {
 	
 	private KakaoSearchService searchService;
 	
-	private final String SEARCH_PREVIOUS_KEYWORD = "이전";
+	public static final String SEARCH_PREVIOUS_KEYWORD = "이전";
 	
 	
-	private final String SEARCH_REQ_MESSAGE = "검색할 문장을 입력해 주세요.\n\n"
+	public static String SEARCH_REQ_MESSAGE = "검색할 문장을 입력해 주세요.\n\n"
 			+ "이전단계로 돌아가려면" +"\""+ SEARCH_PREVIOUS_KEYWORD +"\"" +"을 입력해주세요.\n"
 			+ "처음단계로 돌아가려면" +"\""+Constant.INIT_KEYWORD+"\"" +"을 입력해주세요.";
 	
@@ -75,8 +75,10 @@ public class SearchStrategy implements KakaoStrategy {
 		if(reqPreviousStep(user.getReqUserData().getContents())){
 			user.setSubStatus(SearchCode.REQ.getValue());
 			return initProcess(user);
-		} else
-			return null;
+		} else{
+			initializeSearchService(SearchCode.valueOfCode(user.getSubStatusValue()));
+			return searchService.doSearchRequest(user.getReqUserData().getContents());
+		}
 	}
 	
 	private boolean reqPreviousStep(String contents){
@@ -90,7 +92,7 @@ public class SearchStrategy implements KakaoStrategy {
 		keyboard.setType("buttons");
 		keyboard.addButton(SearchCode.SEARCH_CATAGORY_WEB);
 		keyboard.addButton(SearchCode.SEARCH_CATAGORY_BOOK);
-		keyboard.addButton(SearchCode.SEARCH_CATAGORY_MOVIE);
+		keyboard.addButton(SearchCode.SEARCH_CATAGORY_KEYWORD);
 		return new ResponseMessage(new Message("검색 분류를 선택해주세요."),keyboard);
 	}
 }
