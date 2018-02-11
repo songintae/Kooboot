@@ -25,7 +25,7 @@ public class TranslateTest {
 	
 	@Test
 	public void translateSentence(){
-		assertThat(papagoService.translateSentence(TranslateCode.KO_TO_EN.getSource(),
-				TranslateCode.KO_TO_EN.getTarget(),"안녕하세요?"),is("Hello?"));
+		assertThat(papagoService.translateSentence(TranslateCode.EN_TO_KO.getSource(),
+				TranslateCode.EN_TO_KO.getTarget(),"Hello?"),is("여보세요?"));
 	}
 }

@@ -24,6 +24,7 @@ import kooboot.prepost.implement.PostProcessService;
 import kooboot.prepost.implement.PreProcessService;
 import kooboot.process.domain.KakaoStrategy;
 import kooboot.process.implement.KakaoContext;
+import kooboot.search.implement.SearchStrategy;
 import kooboot.sqlservice.definition.SqlService;
 import kooboot.translate.domain.TranslateService;
 import kooboot.translate.implement.PapagoService;
@@ -67,11 +68,18 @@ public class AppContext {
 	}
 	
 	@Bean
+	public KakaoStrategy searchStrategy(){
+		SearchStrategy searchStrategy = new SearchStrategy();
+		return searchStrategy;
+	}
+	
+	@Bean
 	public KakaoStrategy translateStrategy(){
 		TranslateStrategy translateStrategy = new TranslateStrategy();
 		translateStrategy.setTranslateService(translateService());
 		return translateStrategy;
 	}
+	
 	
 	@Bean
 	public TranslateService translateService(){

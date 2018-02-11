@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 
-import kooboot.initialstate.domain.Initialstate;
+import kooboot.initialstate.domain.InitialstateCode;
 import kooboot.request.domain.RequestMessage;
 import kooboot.user.domain.User;
 import kooboot.user.domain.UserData;
@@ -41,9 +41,9 @@ public class PreProcessService {
 			if(delayRequestCheck(user.getLastReqTime())){
 				user.setStatus(StatusCode.INIT);
 				if(keyboardByPassCheck(user))	
-					user.setSubStatus(Initialstate.INIT.getValue());
+					user.setSubStatus(InitialstateCode.INIT.getValue());
 				else			
-					user.setSubStatus(Initialstate.DELAY.getValue());
+					user.setSubStatus(InitialstateCode.DELAY.getValue());
 
 			}
 			

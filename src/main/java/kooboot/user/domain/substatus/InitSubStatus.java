@@ -1,13 +1,13 @@
 package kooboot.user.domain.substatus;
 
-import kooboot.initialstate.domain.Initialstate;
+import kooboot.initialstate.domain.InitialstateCode;
 
 public class InitSubStatus extends SubStatus {
-	private Initialstate initialstate;
+	private InitialstateCode initialstate;
 	
 	public InitSubStatus(){
 		super();
-		initialstate = Initialstate.INIT;
+		initialstate = InitialstateCode.INIT;
 	}
 	@Override
 	public String getStatusValue() {
@@ -18,7 +18,7 @@ public class InitSubStatus extends SubStatus {
 	@Override
 	public void setStatusCode(String value) {
 		// TODO Auto-generated method stub
-		this.initialstate = Initialstate.valueOfCode(value);
+		this.initialstate = InitialstateCode.valueOfCode(value);
 	}
 
 }

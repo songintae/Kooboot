@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import kooboot.httpservice.domain.UrlCallback;
 import kooboot.httpservice.exception.HttpServiceException;
@@ -16,12 +17,13 @@ public class UrlHttpTemplate {
 		HttpURLConnection con = null;
 		BufferedReader br = null;
 		try{
+			
 			url = new URL(requestUrl);
 			con = (HttpURLConnection)url.openConnection();
 			con = callback.doSomtingWithHttpService(con);
 			int responseCode = con.getResponseCode();
 			if(responseCode == 200)
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				br = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
 			else
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			String inputLine = null;

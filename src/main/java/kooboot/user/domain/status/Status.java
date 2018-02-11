@@ -5,7 +5,7 @@ import java.io.NotActiveException;
 import kooboot.user.domain.substatus.InitSubStatus;
 import kooboot.user.domain.substatus.SubStatus;
 import kooboot.user.domain.substatus.TranslateSubStatus;
-import kooboot.user.domain.substatus.WeatherStatus;
+import kooboot.user.domain.substatus.SearchStatus;
 import kooboot.user.exception.NotExistStatusException;
 import kooboot.util.StringUtil;
 
@@ -48,8 +48,8 @@ public class Status {
 			this.subStatus = new InitSubStatus();
 		}else if(statusCode == StatusCode.TRANSLATE){
 			this.subStatus = new TranslateSubStatus();
-		}else if(statusCode == StatusCode.WEATHER){
-			this.subStatus = new WeatherStatus();
+		}else if(statusCode == StatusCode.SEARCH){
+			this.subStatus = new SearchStatus();
 		}else{
 			throw new NotExistStatusException("해당하는 하위 STATUS가 없습니다.");
 		}

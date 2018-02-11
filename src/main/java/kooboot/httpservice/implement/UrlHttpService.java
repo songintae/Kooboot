@@ -28,6 +28,7 @@ public class UrlHttpService implements HttpService {
 			@Override
 			public HttpURLConnection doSomtingWithHttpService(HttpURLConnection con) throws IOException {
 				// TODO Auto-generated method stub
+				con.setRequestProperty("content-type", "application/json;charset=UTF-8");
 				con.setRequestMethod("GET");
 				Iterator<String> keyIterator = header.keySet().iterator();
 				String key = null;
@@ -111,7 +112,7 @@ public class UrlHttpService implements HttpService {
 		return con;
 	}
 	
-	private String makeParamByUrlEncoder(Map<String,String> param){
+	public static String makeParamByUrlEncoder(Map<String,String> param){
 		try{
 			String resultParam = null;
 			Iterator<String> keyIterator = param.keySet().iterator();
@@ -129,7 +130,7 @@ public class UrlHttpService implements HttpService {
 		
 	}
 	
-	private String makeParamByJson(Map<String,String> param){
+	public static String makeParamByJson(Map<String,String> param){
 		try{
 			String resultParam = null;
 			Iterator<String> keyIterator = param.keySet().iterator();

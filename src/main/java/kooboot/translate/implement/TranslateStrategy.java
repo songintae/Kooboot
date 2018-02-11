@@ -19,8 +19,8 @@ public class TranslateStrategy implements KakaoStrategy{
 	
 	private final String TRANSLATE_PREVIOUS_KEYWORD = "이전";
 	
-	private final String TRANSLATE_INIT_MESSAGE = " 1.한국어 -> 영어로 번역.\n "
-			+ "2.한국어 -> 일어로 번역.\n "
+	private final String TRANSLATE_INIT_MESSAGE = " 1.한국어 -> 영어로 번역.\n"
+			+ "2.한국어 -> 일어로 번역.\n"
 			+ "3.한국어 -> 중국어로 번역.\n"
 			+ "4.영문  -> 한국어로 번역.\n"
 			+ "5.일어  -> 한국어로 번역.\n"

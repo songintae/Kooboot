@@ -64,7 +64,7 @@ public class User {
 				setStatus(StatusCode.TRANSLATE);
 				break;
 			case Constant.INIT_KEYBOARD_BUTTON_TWO : 
-				setStatus(StatusCode.WEATHER);
+				setStatus(StatusCode.SEARCH);
 				break;
 		}
 	}

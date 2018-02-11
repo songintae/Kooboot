@@ -47,17 +47,17 @@ public class KakaoContext {
 	}
 	
 	private StrategyResult doStretegyProcess(User user){
-		initializeStrategy(user);
+		initializeStrategy(user.getStatusCode());
 		return strategy.doProcessSerivce(user);
 	}
-	private void initializeStrategy(User user){
+	private void initializeStrategy(StatusCode code){
 		String beanName = "";
-		if(StatusCode.INIT == user.getStatusCode())
+		if(StatusCode.INIT == code)
 			beanName = "initialstateStrategy";
-		else if(StatusCode.TRANSLATE == user.getStatusCode())
+		else if(StatusCode.TRANSLATE == code)
 			beanName = "translateStrategy";
-		else if(StatusCode.WEATHER == user.getStatusCode())
-			beanName = "weatherStrategy";
+		else if(StatusCode.SEARCH == code)
+			beanName = "searchStrategy";
 		else
 			throw new NotSupportedServiceException();
 		
