@@ -13,16 +13,15 @@ import kooboot.response.domain.Message;
 import kooboot.response.domain.ResponseMessage;
 import kooboot.search.domain.KakaoSearchService;
 import kooboot.search.domain.Response;
+import kooboot.search.domain.book.BookResponse;
 import kooboot.search.domain.keyword.KeywordResponse;
 import kooboot.util.Constant;
 
-public class KeywordSearchService extends KakaoSearchService{
+public class BookSearchService extends KakaoSearchService {
 	
-	
-	@Value("${search.keywordurl}") String keywordUrl;
+	@Value("${search.bookurl}") String bookdUrl;
 	private HttpService httpService;
 	
-
 	public void setHttpService(HttpService httpService){
 		super.setHttpService(httpService);
 	}
@@ -30,28 +29,27 @@ public class KeywordSearchService extends KakaoSearchService{
 	@Override
 	protected String getUrl() {
 		// TODO Auto-generated method stub
-		return keywordUrl;
+		return bookdUrl;
 	}
 	
 	@Override
-	protected Response createResponse() {
+	protected ResponseMessage resultMessage(Response arg) {
 		// TODO Auto-generated method stub
-		return new KeywordResponse();
-	}
-	
-	
-	@Override
-	protected ResponseMessage resultMessage(Response arg){
 		String message = "정확도 순으로 최대 5개까지 보여집니다.\n";
-		KeywordResponse response = (KeywordResponse)arg;
+		BookResponse response = (BookResponse)arg;
 		for(int i = 0; i < response.getTotal_count() && i < 5; i++){
 			String entry = "\n(" + (i+1) + ")";
-			entry+= "\n장소 : " + response.getDocument().get(i).getPlace_name();
-			entry+= "\n분류 : " + response.getDocument().get(i).getCategory_group_name();
-			entry+= "\n주소 : " + response.getDocument().get(i).getAddress_name();
-			entry+= "\n도로명 : " + response.getDocument().get(i).getRoad_address_name();
-			entry+= "\n번호 : " + response.getDocument().get(i).getPhone();
-			entry+= "\n링크 : " + response.getDocument().get(i).getPlace_url();
+			entry+= "\n제목 : " + response.getDocument().get(i).getTitle();
+			entry+= "\n분류 : " + response.getDocument().get(i).getCategory();
+			entry+= "\n저자 : " ;
+			for(int j = 0; j <  response.getDocument().get(i).getAuthors().size() ; j++){
+				entry+= response.getDocument().get(i).getAuthors().get(j);
+				if(j != response.getDocument().get(i).getAuthors().size() -1)
+					entry+=", ";
+			}
+			entry+= "\n가격 : " + response.getDocument().get(i).getPrice();
+			entry+= "\n할인가격 : " + response.getDocument().get(i).getSale_price();
+			entry+= "\n링크 : " + response.getDocument().get(i).getUrl();
 			entry+= "\n";	
 			message += entry;
 		}
@@ -60,6 +58,12 @@ public class KeywordSearchService extends KakaoSearchService{
 		return new ResponseMessage(new Message(message),null);
 	}
 
+	@Override
+	protected Response createResponse() {
+		// TODO Auto-generated method stub
+		return new BookResponse();
+	}
 
 
+	
 }

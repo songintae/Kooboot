@@ -25,6 +25,7 @@ import kooboot.prepost.implement.PreProcessService;
 import kooboot.process.domain.KakaoStrategy;
 import kooboot.process.implement.KakaoContext;
 import kooboot.search.domain.KakaoSearchService;
+import kooboot.search.implement.BookSearchService;
 import kooboot.search.implement.KeywordSearchService;
 import kooboot.search.implement.SearchStrategy;
 import kooboot.sqlservice.definition.SqlService;
@@ -80,6 +81,12 @@ public class AppContext {
 		KeywordSearchService keywordSearchService = new KeywordSearchService();
 		keywordSearchService.setHttpService(httpService());
 		return keywordSearchService;
+	}
+	
+	@Bean KakaoSearchService bookSearchService(){
+		BookSearchService bookSearchService = new BookSearchService();
+		bookSearchService.setHttpService(httpService());
+		return bookSearchService;
 	}
 	
 	@Bean

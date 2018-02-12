@@ -4,9 +4,10 @@ import java.util.Iterator;
 
 import org.json.simple.JSONObject;
 
+import kooboot.search.domain.Document;
 import kooboot.util.StringUtil;
 
-public class Document {
+public class KeywordDocument extends Document{
 	private String place_url;
 	private String category_group_name;
 	private String place_name;
@@ -20,26 +21,8 @@ public class Document {
 	private String x;
 	private String y;
 	
-	public Document() {
+	public KeywordDocument() {
 	}
-	
-	public Document(String place_url, String category_group_name, String place_name, String distance,
-			String address_name, String road_address_name, String id, String phone, String category_group_code,
-			String category_name, String x, String y) {
-		this.place_url = place_url;
-		this.category_group_name = category_group_name;
-		this.place_name = place_name;
-		this.distance = distance;
-		this.address_name = address_name;
-		this.road_address_name = road_address_name;
-		this.id = id;
-		this.phone = phone;
-		this.category_group_code = category_group_code;
-		this.category_name = category_name;
-		this.x = x;
-		this.y = y;
-	}
-
 
 	public String getPlace_url() {
 		return place_url;
@@ -114,17 +97,4 @@ public class Document {
 		this.y = y;
 	}
 	
-	public void pareseDocumentResponse(JSONObject response){
-		Iterator itr = response.keySet().iterator();
-		String key = null;
-		while(itr.hasNext()){
-			key = itr.next().toString();
-			try{
-				Document.class.getMethod("set"+StringUtil.StringFirstUpper(key),String.class).invoke(this, (String)response.get(key));
-			}catch(Exception e){
-				
-			}
-		}
-		
-	}
 }
