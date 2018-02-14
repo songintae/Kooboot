@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import kooboot.search.Exception.ResponsParseException;
+import kooboot.search.exception.ResponsParseException;
 
 
 public abstract class Response {

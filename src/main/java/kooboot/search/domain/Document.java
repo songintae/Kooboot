@@ -7,8 +7,8 @@ import org.json.simple.JSONObject;
 
 import com.mysql.fabric.xmlrpc.base.ResponseParser;
 
-import kooboot.search.Exception.ResponsParseException;
 import kooboot.search.domain.book.BookDocument;
+import kooboot.search.exception.ResponsParseException;
 import kooboot.util.StringUtil;
 
 public class Document {

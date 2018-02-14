@@ -33,7 +33,7 @@ public class HttpServiceTest {
 		String result = httpService.doHttpGet(url, header);
 		KeywordResponse keywordResponse = new KeywordResponse();
 		keywordResponse.pareseKeywordResponse(result);
-		System.out.println(keywordResponse.getDocument().get(0).getPlace_name());
+		System.out.println(keywordResponse.getDocuments().get(0).getPlace_name());
 		
 	}
 }

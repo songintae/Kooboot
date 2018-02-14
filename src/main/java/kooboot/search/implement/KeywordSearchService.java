@@ -46,12 +46,12 @@ public class KeywordSearchService extends KakaoSearchService{
 		KeywordResponse response = (KeywordResponse)arg;
 		for(int i = 0; i < response.getTotal_count() && i < 5; i++){
 			String entry = "\n(" + (i+1) + ")";
-			entry+= "\n장소 : " + response.getDocument().get(i).getPlace_name();
-			entry+= "\n분류 : " + response.getDocument().get(i).getCategory_group_name();
-			entry+= "\n주소 : " + response.getDocument().get(i).getAddress_name();
-			entry+= "\n도로명 : " + response.getDocument().get(i).getRoad_address_name();
-			entry+= "\n번호 : " + response.getDocument().get(i).getPhone();
-			entry+= "\n링크 : " + response.getDocument().get(i).getPlace_url();
+			entry+= "\n장소 : " + response.getDocuments().get(i).getPlace_name();
+			entry+= "\n분류 : " + response.getDocuments().get(i).getCategory_group_name();
+			entry+= "\n주소 : " + response.getDocuments().get(i).getAddress_name();
+			entry+= "\n도로명 : " + response.getDocuments().get(i).getRoad_address_name();
+			entry+= "\n번호 : " + response.getDocuments().get(i).getPhone();
+			entry+= "\n링크 : " + response.getDocuments().get(i).getPlace_url();
 			entry+= "\n";	
 			message += entry;
 		}

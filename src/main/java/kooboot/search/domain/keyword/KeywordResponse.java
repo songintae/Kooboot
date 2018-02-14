@@ -28,7 +28,7 @@ public class KeywordResponse extends Response {
 		this.documents.remove(index);
 	}
 	
-	public List<KeywordDocument> getDocument(){
+	public List<KeywordDocument> getDocuments(){
 		return Collections.unmodifiableList(this.documents);
 	}
 	

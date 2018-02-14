@@ -1,25 +1,20 @@
 package kooboot.search.implement;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Value;
 
 import kooboot.httpservice.domain.HttpService;
-import kooboot.httpservice.implement.UrlHttpService;
 import kooboot.response.domain.Message;
 import kooboot.response.domain.ResponseMessage;
 import kooboot.search.domain.KakaoSearchService;
 import kooboot.search.domain.Response;
-import kooboot.search.domain.book.BookResponse;
 import kooboot.search.domain.keyword.KeywordResponse;
-import kooboot.util.Constant;
+import kooboot.search.domain.web.WebResponse;
+import kooboot.util.DateUtil;
 
-public class BookSearchService extends KakaoSearchService {
+public class WebSearchService extends KakaoSearchService{
 	
-	@Value("${search.bookurl}") String bookdUrl;
+
+	@Value("${search.weburl}") String webUrl;
 	private HttpService httpService;
 	
 	public void setHttpService(HttpService httpService){
@@ -29,26 +24,20 @@ public class BookSearchService extends KakaoSearchService {
 	@Override
 	protected String getUrl() {
 		// TODO Auto-generated method stub
-		return bookdUrl;
+		return this.webUrl;
 	}
+	
 	
 	@Override
 	protected ResponseMessage resultMessage(Response arg) {
 		// TODO Auto-generated method stub
 		String message = "정확도 순으로 최대 5개까지 보여집니다.\n";
-		BookResponse response = (BookResponse)arg;
+		WebResponse response = (WebResponse)arg;
 		for(int i = 0; i < response.getTotal_count() && i < 5; i++){
 			String entry = "\n(" + (i+1) + ")";
-			entry+= "\n제목 : " + response.getDocuments().get(i).getTitle();
-			entry+= "\n분류 : " + response.getDocuments().get(i).getCategory();
-			entry+= "\n저자 : " ;
-			for(int j = 0; j <  response.getDocuments().get(i).getAuthors().size() ; j++){
-				entry+= response.getDocuments().get(i).getAuthors().get(j);
-				if(j != response.getDocuments().get(i).getAuthors().size() -1)
-					entry+=", ";
-			}
-			entry+= "\n가격 : " + response.getDocuments().get(i).getPrice();
-			entry+= "\n할인가격 : " + response.getDocuments().get(i).getSale_price();
+			entry+= "\n제목 : " + replaceHtmlTagWithBlank(response.getDocuments().get(i).getTitle());
+			entry+= "\n내용 : " + replaceHtmlTagWithBlank(response.getDocuments().get(i).getContents());
+			entry+= "\n일시 : " + DateUtil.getDateYyyymmddhhmmssWithDelimiterWithISO8601(response.getDocuments().get(i).getDatetime());
 			entry+= "\n링크 : " + response.getDocuments().get(i).getUrl();
 			entry+= "\n";	
 			message += entry;
@@ -61,9 +50,13 @@ public class BookSearchService extends KakaoSearchService {
 	@Override
 	protected Response createResponse() {
 		// TODO Auto-generated method stub
-		return new BookResponse();
+		return new WebResponse();
+	}
+	
+	private String replaceHtmlTagWithBlank(String value){
+		return value.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>","");
 	}
 
-
 	
+
 }

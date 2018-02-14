@@ -1,19 +1,11 @@
 package kooboot.util;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class DateUtil extends Date {
-	public DateUtil(){
-		super();
-	};
-	public DateUtil(String dateString){
-		super(dateString);
-	}
-	
-	public DateUtil(Date arg){
-		super(arg.getTime());
-	}
+public class DateUtil{
 
 	
 	public static String getDateByFomrmat(Date arg, String format){
@@ -25,5 +17,16 @@ public class DateUtil extends Date {
 	
 	public static String getDateYyyymmddhhmmss(Date arg){
 		return getDateByFomrmat(arg,"yyyyMMddHHmmss");
+	}
+	public static String getDateYyyymmddhhmmssWithDelimiter(Date arg){
+		return getDateByFomrmat(arg,"yyyy-MM-dd HH:mm:ss");
+	}
+	
+	public static Date getDateWithISO8601Format(String ISO8601Time){
+		return javax.xml.bind.DatatypeConverter.parseDateTime(ISO8601Time).getTime();
+	}
+	
+	public static String getDateYyyymmddhhmmssWithDelimiterWithISO8601(String ISO8601Time){
+		return getDateYyyymmddhhmmssWithDelimiter(getDateWithISO8601Format(ISO8601Time));
 	}
 }

@@ -28,6 +28,7 @@ import kooboot.search.domain.KakaoSearchService;
 import kooboot.search.implement.BookSearchService;
 import kooboot.search.implement.KeywordSearchService;
 import kooboot.search.implement.SearchStrategy;
+import kooboot.search.implement.WebSearchService;
 import kooboot.sqlservice.definition.SqlService;
 import kooboot.translate.domain.TranslateService;
 import kooboot.translate.implement.PapagoService;
@@ -77,13 +78,22 @@ public class AppContext {
 		return searchStrategy;
 	}
 	
-	@Bean KakaoSearchService keywordSearchService(){
+	@Bean 
+	public KakaoSearchService keywordSearchService(){
 		KeywordSearchService keywordSearchService = new KeywordSearchService();
 		keywordSearchService.setHttpService(httpService());
 		return keywordSearchService;
 	}
 	
-	@Bean KakaoSearchService bookSearchService(){
+	@Bean 
+	public KakaoSearchService webSearchService(){
+		WebSearchService webSearchService = new WebSearchService();
+		webSearchService.setHttpService(httpService());
+		return webSearchService;
+	}
+	
+	@Bean 
+	public KakaoSearchService bookSearchService(){
 		BookSearchService bookSearchService = new BookSearchService();
 		bookSearchService.setHttpService(httpService());
 		return bookSearchService;

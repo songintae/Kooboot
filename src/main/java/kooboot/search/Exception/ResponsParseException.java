@@ -1,4 +1,4 @@
-package kooboot.search.Exception;
+package kooboot.search.exception;
 
 public class ResponsParseException extends RuntimeException {
 	public ResponsParseException(String message){
