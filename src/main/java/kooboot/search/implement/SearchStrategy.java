@@ -1,5 +1,6 @@
 package kooboot.search.implement;
 
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
@@ -34,44 +35,53 @@ public class SearchStrategy implements KakaoStrategy {
 	@Override
 	public StrategyResult doProcessSerivce(User user) {
 		// TODO Auto-generated method stub
-		ResponseMessage responsMessage = null;
-		if(SearchCode.INIT == SearchCode.valueOfCode(user.getSubStatusValue()))
-			responsMessage = initProcess(user);
-		else if(SearchCode.REQ == SearchCode.valueOfCode(user.getSubStatusValue()))
-			responsMessage = reqProcess(user);
-		else
-			responsMessage = resProcess(user);
-			
-		return new StrategyResult(user,responsMessage);
+		try{
+			ResponseMessage responsMessage = null;
+			if(SearchCode.INIT == SearchCode.valueOfCode(user.getSubStatusValue()))
+				responsMessage = initProcess(user);
+			else if(SearchCode.REQ == SearchCode.valueOfCode(user.getSubStatusValue()))
+				responsMessage = reqProcess(user);
+			else
+				responsMessage = resProcess(user);
+				
+			return new StrategyResult(user,responsMessage);
+		}catch(AssertionError | NotSupportedServiceException e){
+			return new StrategyResult(user,getErrMesage());
+		}
+		
 	}
 	
 	private void initializeSearchService(SearchCode code){
-		String beanName = "";
-		if(SearchCode.WEB == code)
-			beanName = "webSearchService";
-		else if(SearchCode.BOOK == code)
-			beanName = "bookSearchService";
-		else if(SearchCode.KEYWORD == code)
-			beanName = "keywordSearchService";
-		else
+		try{
+			String beanName = "";
+			if(SearchCode.WEB == code)
+				beanName = "webSearchService";
+			else if(SearchCode.BOOK == code)
+				beanName = "bookSearchService";
+			else if(SearchCode.KEYWORD == code)
+				beanName = "keywordSearchService";
+			else
+				throw new NotSupportedServiceException();
+			searchService =appContext.getBean(beanName,KakaoSearchService.class);
+		}catch(NoSuchBeanDefinitionException e){
 			throw new NotSupportedServiceException();
+		}
 		
-		searchService =appContext.getBean(beanName,KakaoSearchService.class);
 		
 	}
 	
-	private ResponseMessage initProcess(User user){
+	private ResponseMessage initProcess(User user) throws AssertionError{
 		user.setSubStatus(SearchCode.REQ.getValue());
 		return getInitMessage();
 	}
 	
-	private ResponseMessage reqProcess(User user){
+	private ResponseMessage reqProcess(User user) throws AssertionError{
 			user.setSubStatus(user.getReqUserData().getContents());
 			return new ResponseMessage(new Message(SEARCH_REQ_MESSAGE),null);	
 	}
 	
 	
-	private ResponseMessage resProcess(User user){
+	private ResponseMessage resProcess(User user) throws AssertionError{
 		if(reqPreviousStep(user.getReqUserData().getContents())){
 			user.setSubStatus(SearchCode.REQ.getValue());
 			return initProcess(user);
@@ -85,14 +95,20 @@ public class SearchStrategy implements KakaoStrategy {
 		return SEARCH_PREVIOUS_KEYWORD.equals(contents);
 	}
 	
-	
+	private ResponseMessage getErrMesage(){
+		return new ResponseMessage(new Message("처리중 오류가 발생했습니다. 검색 분류를 다시 선택해 주세요."),getSearchKeboard());
+	}
 	
 	private ResponseMessage getInitMessage(){
+		return new ResponseMessage(new Message("검색 분류를 선택해주세요."),getSearchKeboard());
+	}
+	
+	private Keyboard getSearchKeboard(){
 		Keyboard keyboard = new Keyboard();
 		keyboard.setType("buttons");
 		keyboard.addButton(SearchCode.SEARCH_CATAGORY_WEB);
 		keyboard.addButton(SearchCode.SEARCH_CATAGORY_BOOK);
 		keyboard.addButton(SearchCode.SEARCH_CATAGORY_KEYWORD);
-		return new ResponseMessage(new Message("검색 분류를 선택해주세요."),keyboard);
+		return keyboard;
 	}
 }

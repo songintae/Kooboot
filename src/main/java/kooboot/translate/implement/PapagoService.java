@@ -15,6 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import kooboot.httpservice.domain.HttpService;
+import kooboot.httpservice.exception.HttpServiceException;
 import kooboot.translate.domain.PapagoResponse;
 import kooboot.translate.domain.TranslateCode;
 import kooboot.translate.domain.TranslateService;
@@ -47,13 +48,18 @@ public class PapagoService implements TranslateService {
 	@Override
 	public String translateSentence(String source , String target, String sentence) {
 		// TODO Auto-generated method stub
-		param.put("source", source);
-		param.put("target", target);
-		param.put("text", sentence);
-		return parseResponse(httpService.doHttpPostByUrlencoded(translateUrl, header, param)).getTranslatedText();
+		try{
+			param.put("source", source);
+			param.put("target", target);
+			param.put("text", sentence);
+			return parseResponse(httpService.doHttpPostByUrlencoded(translateUrl, header, param)).getTranslatedText();
+		}catch(HttpServiceException | TranslateException e){
+			throw new TranslateException(e); 
+		}
+		
 	}
 	
-	private PapagoResponse parseResponse(String response){
+	private PapagoResponse parseResponse(String response) throws TranslateException{
 		PapagoResponse papagoResponse = null;
 		try{
 			papagoResponse  = new PapagoResponse();
@@ -76,7 +82,7 @@ public class PapagoService implements TranslateService {
 				
 			}
 			return papagoResponse;
-		}catch(ParseException e){
+		}catch(Exception e){
 			throw new TranslateException(e);
 		}
 	}

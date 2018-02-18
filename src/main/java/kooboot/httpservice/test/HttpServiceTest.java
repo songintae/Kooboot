@@ -32,7 +32,7 @@ public class HttpServiceTest {
 		header.put("Authorization", "KakaoAK 61702e4b839f22f0e9cd32812ca4a748");
 		String result = httpService.doHttpGet(url, header);
 		KeywordResponse keywordResponse = new KeywordResponse();
-		keywordResponse.pareseKeywordResponse(result);
+		keywordResponse.pareseResponse(result);
 		System.out.println(keywordResponse.getDocuments().get(0).getPlace_name());
 		
 	}

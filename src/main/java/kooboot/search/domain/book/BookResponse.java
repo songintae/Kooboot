@@ -12,7 +12,7 @@ import org.json.simple.parser.ParseException;
 import kooboot.search.domain.Document;
 import kooboot.search.domain.Response;
 import kooboot.search.domain.keyword.KeywordDocument;
-import kooboot.search.exception.ResponsParseException;
+import kooboot.search.exception.ResponseParseException;
 
 
 public class BookResponse extends Response{

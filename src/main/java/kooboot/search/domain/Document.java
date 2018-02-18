@@ -8,13 +8,13 @@ import org.json.simple.JSONObject;
 import com.mysql.fabric.xmlrpc.base.ResponseParser;
 
 import kooboot.search.domain.book.BookDocument;
-import kooboot.search.exception.ResponsParseException;
+import kooboot.search.exception.ResponseParseException;
 import kooboot.util.StringUtil;
 
 public class Document {
 	
 	
-	public void pareseDocumentResponse(JSONObject response){
+	public void pareseDocumentResponse(JSONObject response) throws ResponseParseException{
 		Iterator itr = response.keySet().iterator();
 		String key = null;
 		while(itr.hasNext()){
@@ -34,7 +34,7 @@ public class Document {
 		try{
 			getClass().getMethod(methodName, classes).invoke(this, argument);
 		}catch(Exception e){
-			throw new ResponsParseException(e);
+			throw new ResponseParseException(e);
 		}
 		
 	}

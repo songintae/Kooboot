@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import kooboot.search.exception.ResponsParseException;
+import kooboot.search.exception.ResponseParseException;
 
 
 public abstract class Response {
@@ -34,7 +34,7 @@ public abstract class Response {
 		this.is_end = is_end;
 	}
 	
-	public void pareseKeywordResponse(String response){
+	public void pareseResponse(String response){
 		try{
 			JSONObject responseObj = (JSONObject)new JSONParser().parse(response);
 			JSONObject meta = (JSONObject)responseObj.get("meta");
@@ -47,8 +47,8 @@ public abstract class Response {
 				document.pareseDocumentResponse((JSONObject)documents.get(i));
 				addDocument(document);
 			}
-		}catch(ParseException e){
-			throw new ResponsParseException(e);
+		}catch(Exception e){
+			throw new ResponseParseException(e);
 		}
 		
 	}

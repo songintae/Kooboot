@@ -53,7 +53,7 @@ public class TranslateStrategy implements KakaoStrategy{
 	private boolean reqPreviousStep(String contents){
 		return TRANSLATE_PREVIOUS_KEYWORD.equals(contents);
 	}
-	private ResponseMessage initProcess(User user){
+	private ResponseMessage initProcess(User user) {
 		user.setSubStatus(TranslateCode.REQ.getValue());
 		return new ResponseMessage(new Message(TRANSLATE_INIT_MESSAGE),null);
 	}
