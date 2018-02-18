@@ -30,18 +30,24 @@ public class KakaoContext {
 	private KakaoStrategy strategy;
 	private final String NOT_SUPPROTED_SERVICE_TEXT = "이 기능은 지원하지 않는 기능입니다.\n 처음부터 다시 시작해 주십시오.";
 	
-	public ResponseMessage KakaoProcessTemplate(RequestMessage requestMessage){
+	//Template  메서드
+	public ResponseMessage kakaoProcessTemplate(RequestMessage requestMessage){
 		User user = null;
 		StrategyResult result = null;
 		try{
+			//선 처리.
 			user = preProcess.preProcess(requestMessage);
+			//변하는 부분.(Strategy)
 			result = doStretegyProcess(user);
+			//결과 return
 			user = result.getUser();
 			return result.getResponseMessage();
 		}catch(NotSupportedServiceException e){
+			//에러처리.
 			user.setStatus(StatusCode.INIT);
 			return notSupportedServiceResponse();
 		}finally{
+			//후 처리.
 			postProcess.postProcess(user);
 		}
 	}
@@ -50,8 +56,10 @@ public class KakaoContext {
 		initializeStrategy(user.getStatusCode());
 		return strategy.doProcessSerivce(user);
 	}
+	
 	private void initializeStrategy(StatusCode code){
 		String beanName = "";
+		//사용자 상태에 따라 전략 선택.
 		if(StatusCode.INIT == code)
 			beanName = "initialstateStrategy";
 		else if(StatusCode.TRANSLATE == code)
@@ -65,6 +73,7 @@ public class KakaoContext {
 	}
 	
 	private ResponseMessage notSupportedServiceResponse(){
+		//에러 메시지 처리.
 		Message message = new Message();
 		message.setText(NOT_SUPPROTED_SERVICE_TEXT);
 		Keyboard keyboard = new Keyboard();

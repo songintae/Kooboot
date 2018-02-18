@@ -18,6 +18,7 @@ public class InitialstateStrategy implements KakaoStrategy {
 		// TODO Auto-generated method stub
 		ResponseMessage responsMessage = new ResponseMessage();
 		responsMessage.setKeyboard(getinitialKeyboard());
+		//상태에 따라 결과 메시지 설정.
 		if(InitialstateCode.valueOfCode(user.getSubStatusValue()) == InitialstateCode.DELAY)
 			responsMessage.setMessage(new Message(INITIAL_DELAY_TEXT));
 		else

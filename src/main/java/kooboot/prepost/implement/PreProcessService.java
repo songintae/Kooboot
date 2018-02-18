@@ -29,18 +29,26 @@ public class PreProcessService {
 		return user;
 	}
 	
+	//요청 메시지와 사용자 데이터를 이용해 User 객체 생
 	public User initializeUser(RequestMessage message){
 		User user = null;
+		//UserData객체 생성.
 		UserData reqUserData = new UserData(message.getUser_key(),
 				message.getType(),
 				message.getContent());
 		try{
+			
+			//User 데이터 조회.
 			user = userService.getUser(message.getUser_key());
 			user.setReqUserData(reqUserData);
 			
+			//지연상태 확인.
 			if(delayRequestCheck(user.getLastReqTime())){
+				//1Depth 초기화 상태 설정.
 				user.setStatus(StatusCode.INIT);
+				//2Depth 초기화, 지연상태 설정.
 				if(keyboardByPassCheck(user))	
+					//Keyboard 요청으로 넘어온 경우.
 					user.setSubStatus(InitialstateCode.INIT.getValue());
 				else			
 					user.setSubStatus(InitialstateCode.DELAY.getValue());
@@ -48,6 +56,7 @@ public class PreProcessService {
 			}
 			
 		}catch(EmptyResultDataAccessException e){
+			//사용자가 데이터가 DB에 없을 경우 초기화 상태의 객체 생성.
 			user = new User(message.getUser_key(),
 					new Status(StatusCode.INIT),
 					reqUserData);
@@ -56,7 +65,7 @@ public class PreProcessService {
 		return user;
 	}
 	
-	
+	//지연 요청 판단.
 	public boolean delayRequestCheck(String reqTime){
 		Date checkTime = new Date();
 		checkTime.setMinutes(checkTime.getMinutes() -5);
@@ -66,7 +75,7 @@ public class PreProcessService {
 			return false;
 	}
 	
-	
+	//Keyboard 요청 판단.
 	public boolean keyboardByPassCheck(User user){
 		switch(user.getReqUserData().getContents()){
 			case Constant.INIT_KEYBOARD_BUTTON_ONE:

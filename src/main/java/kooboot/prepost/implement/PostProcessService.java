@@ -17,9 +17,12 @@ public class PostProcessService {
 	}
 	
 	public void postProcess(User user){
+		
 		try{
+			//User 객체 저장.
 			userService.addUserAndData(user);
 		}catch(DuplicateKeyException e){
+			//이미 저장되어 있는경우 User객체 갱신.
 			userService.updateUserAndData(user);
 		}
 	}

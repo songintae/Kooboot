@@ -26,17 +26,20 @@ public class UrlHttpService implements HttpService {
 		return urlHttpTemplate.httpServiceTemplate(url, new UrlCallback(){
 
 			@Override
+			//익명클래스 구현.
 			public HttpURLConnection doSomtingWithHttpService(HttpURLConnection con) throws IOException {
 				// TODO Auto-generated method stub
+				//connection 객체 설정.
 				con.setRequestProperty("content-type", "application/json;charset=UTF-8");
 				con.setRequestMethod("GET");
+				// 익명클래스에서는 자신을 포함한 메서드의 매개변수중 final로 선언된 변수를 가져다 쓸 수 있는 강점이 있다.
 				Iterator<String> keyIterator = header.keySet().iterator();
 				String key = null;
 				while(keyIterator.hasNext()){
 					key = keyIterator.next();
 					con.setRequestProperty(key, header.get(key));
 				}
-					
+				//connection 객체 반환.
 				return con;
 			}});
 	}
@@ -89,8 +92,10 @@ public class UrlHttpService implements HttpService {
 		return urlHttpTemplate.httpServiceTemplate(url, new UrlCallback(){
 
 			@Override
+			//익명클래스 구현.
 			public HttpURLConnection doSomtingWithHttpService(HttpURLConnection con) throws IOException {
 				// TODO Auto-generated method stub
+				//Connection 객체 설정.
 				con.setRequestProperty("Content-Type", "application/json");
 				Iterator<String> keyIterator = header.keySet().iterator();
 				 String key = null;
@@ -98,12 +103,15 @@ public class UrlHttpService implements HttpService {
 					 key = keyIterator.next();
 					 con.setRequestProperty(key, header.get(key));
 				 }
+				//Connection 객체 반환.
 				return doPostRequest(con,makeParamByJson(param));
 			}});
 	}
 	
 	private HttpURLConnection doPostRequest(HttpURLConnection con , String param) throws IOException{
+		//Connection 객체 Post 설정.
 		con.setRequestMethod("POST");
+		//Parameter를 설정 및 요청.
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
         wr.writeBytes(param);

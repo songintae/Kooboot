@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
 import kooboot.sqlservice.definition.SqlService;
-import kooboot.user.dao.definition.UserDao;
+import kooboot.user.dao.domain.UserDao;
 import kooboot.user.domain.User;
 import kooboot.user.domain.status.Status;
 import kooboot.user.domain.status.StatusCode;

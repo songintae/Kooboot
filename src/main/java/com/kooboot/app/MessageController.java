@@ -31,7 +31,7 @@ public class MessageController {
 	
 	@RequestMapping(value = "/message", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	public @ResponseBody ResponseMessage message(@RequestBody RequestMessage requestMessage) throws Exception { 
-		return kakaoContext.KakaoProcessTemplate(requestMessage);
+		return kakaoContext.kakaoProcessTemplate(requestMessage);
 	}
 
 }

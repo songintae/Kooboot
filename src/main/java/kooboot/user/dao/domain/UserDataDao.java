@@ -1,4 +1,4 @@
-package kooboot.user.dao.definition;
+package kooboot.user.dao.domain;
 
 import org.springframework.transaction.annotation.Transactional;
 

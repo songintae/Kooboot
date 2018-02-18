@@ -17,7 +17,6 @@ public class UrlHttpTemplate {
 		HttpURLConnection con = null;
 		BufferedReader br = null;
 		try{
-			
 			url = new URL(requestUrl);
 			con = (HttpURLConnection)url.openConnection();
 			con = callback.doSomtingWithHttpService(con);

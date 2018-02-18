@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import kooboot.sqlservice.definition.SqlService;
-import kooboot.user.dao.definition.UserDataDao;
+import kooboot.user.dao.domain.UserDataDao;
 import kooboot.user.domain.UserData;
 
 public class JdbcUserDataDao implements UserDataDao {

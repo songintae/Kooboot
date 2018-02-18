@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <interface id="1" language="java" name="kooboot.httpservice.domain.HttpService" project="Kooboot" 
     file="/Kooboot/src/main/java/kooboot/httpservice/domain/HttpService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="155" width="455" x="-57" y="75"/>    
+    <position height="-1" width="-1" x="361" y="148"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </interface>  
   <class id="2" language="java" name="kooboot.httpservice.implement.UrlHttpService" project="Kooboot" 
     file="/Kooboot/src/main/java/kooboot/httpservice/implement/UrlHttpService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="193" y="448"/>    
+    <position height="-1" width="-1" x="362" y="416"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -22,7 +22,7 @@
   <class id="3" language="java" name="kooboot.httpservice.implement.UrlHttpTemplate" project="Kooboot" 
     file="/Kooboot/src/main/java/kooboot/httpservice/implement/UrlHttpTemplate.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="596" y="379"/>    
+    <position height="-1" width="-1" x="755" y="386"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -31,25 +31,29 @@
   </class>  
   <interface id="4" language="java" name="kooboot.httpservice.domain.UrlCallback" project="Kooboot" 
     file="/Kooboot/src/main/java/kooboot/httpservice/domain/UrlCallback.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="967" y="369"/>    
+    <position height="-1" width="-1" x="810" y="182"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <association id="5">    
+  <realization id="5">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <association id="6">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="6" name="urlHttpTemplate"/>      
-      <multiplicity id="7" minimum="0" maximum="1"/>    
+      <attribute id="7" name="urlHttpTemplate">        
+        <position height="0" width="0" x="159" y="7"/>      
+      </attribute>      
+      <multiplicity id="8" minimum="0" maximum="1">        
+        <position height="0" width="0" x="159" y="7"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="8">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

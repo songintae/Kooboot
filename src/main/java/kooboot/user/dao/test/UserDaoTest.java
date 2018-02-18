@@ -14,8 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kooboot.appcontext.AppContext;
 import kooboot.translate.domain.TranslateCode;
-import kooboot.user.dao.definition.UserDao;
-import kooboot.user.dao.definition.UserDataDao;
+import kooboot.user.dao.domain.UserDao;
+import kooboot.user.dao.domain.UserDataDao;
 import kooboot.user.domain.User;
 import kooboot.user.domain.UserData;
 import kooboot.user.domain.status.Status;

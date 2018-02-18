@@ -7,9 +7,7 @@ public class StrategyResult {
 	private User user;
 	private ResponseMessage responseMessage;
 	
-	public StrategyResult(){
-		
-	}
+	public StrategyResult(){}
 	
 	public StrategyResult(User user, ResponseMessage responseMessage) {
 		super();
