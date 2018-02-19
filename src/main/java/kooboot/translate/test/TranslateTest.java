@@ -17,15 +17,15 @@ import kooboot.translate.domain.TranslateCode;
 import kooboot.translate.domain.TranslateService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=AppContext.class)
+@ContextConfiguration(classes = AppContext.class)
 public class TranslateTest {
-	
+
 	@Autowired
 	TranslateService papagoService;
-	
+
 	@Test
-	public void translateSentence(){
+	public void translateSentence() {
 		assertThat(papagoService.translateSentence(TranslateCode.EN_TO_KO.getSource(),
-				TranslateCode.EN_TO_KO.getTarget(),"Hello?"),is("여보세요?"));
+				TranslateCode.EN_TO_KO.getTarget(), "Hello?"), is("여보세요?"));
 	}
 }

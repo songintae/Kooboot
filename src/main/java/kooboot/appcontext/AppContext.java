@@ -44,6 +44,7 @@ import kooboot.user.service.implement.BasicUserService;
 @ComponentScan(basePackages="kooboot")
 @EnableSqlService
 @EnableTransactionManagement
+@EnableHttpService
 @PropertySources({
 	@PropertySource("classpath:kooboot/appcontext/database.properties"),
 	@PropertySource("classpath:kooboot/translate/domain/serviceinfo.properties"),
@@ -60,6 +61,9 @@ public class AppContext {
 	
 	@Autowired
 	SqlService sqlService;
+	
+	@Autowired
+	HttpService httpService;
 	
 	@Bean
 	public KakaoContext kakaoContext(){
@@ -81,21 +85,21 @@ public class AppContext {
 	@Bean 
 	public KakaoSearchService keywordSearchService(){
 		KeywordSearchService keywordSearchService = new KeywordSearchService();
-		keywordSearchService.setHttpService(httpService());
+		keywordSearchService.setHttpService(httpService);
 		return keywordSearchService;
 	}
 	
 	@Bean 
 	public KakaoSearchService webSearchService(){
 		WebSearchService webSearchService = new WebSearchService();
-		webSearchService.setHttpService(httpService());
+		webSearchService.setHttpService(httpService);
 		return webSearchService;
 	}
 	
 	@Bean 
 	public KakaoSearchService bookSearchService(){
 		BookSearchService bookSearchService = new BookSearchService();
-		bookSearchService.setHttpService(httpService());
+		bookSearchService.setHttpService(httpService);
 		return bookSearchService;
 	}
 	
@@ -110,16 +114,10 @@ public class AppContext {
 	@Bean
 	public TranslateService translateService(){
 		PapagoService papagoService = new PapagoService();
-		papagoService.setHttpService(httpService());
+		papagoService.setHttpService(httpService);
 		return papagoService;
 	}
 	
-	@Bean
-	public HttpService httpService(){
-		UrlHttpService httpService = new UrlHttpService();
-		httpService.setUrlHttpTemplate(new UrlHttpTemplate());
-		return httpService;
-	}
 	
 	@Bean
 	public PostProcessService postProcessService(){

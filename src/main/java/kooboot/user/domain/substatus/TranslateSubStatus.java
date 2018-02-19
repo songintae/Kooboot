@@ -3,14 +3,14 @@ package kooboot.user.domain.substatus;
 import kooboot.translate.domain.TranslateCode;
 
 public class TranslateSubStatus extends SubStatus {
-	
+
 	private TranslateCode translate;
-	
-	public TranslateSubStatus(){
+
+	public TranslateSubStatus() {
 		super();
 		translate = TranslateCode.INIT;
 	}
-	
+
 	@Override
 	public String getStatusValue() {
 		// TODO Auto-generated method stub
@@ -22,5 +22,5 @@ public class TranslateSubStatus extends SubStatus {
 		// TODO Auto-generated method stub
 		this.translate = TranslateCode.valueOfCode(code);
 	}
-	
+
 }

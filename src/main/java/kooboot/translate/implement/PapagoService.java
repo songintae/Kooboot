@@ -21,68 +21,69 @@ import kooboot.translate.domain.TranslateCode;
 import kooboot.translate.domain.TranslateService;
 import kooboot.translate.exception.TranslateException;
 
-
 public class PapagoService implements TranslateService {
-	
-	
-	@Value("${translate.url}") String translateUrl;
-	@Value("${translate.clientid}") String translateClientId;
-	@Value("${translate.clientsecret}") String translateSecretId;
-	
-	
+
+	@Value("${translate.url}")
+	String translateUrl;
+	@Value("${translate.clientid}")
+	String translateClientId;
+	@Value("${translate.clientsecret}")
+	String translateSecretId;
+
 	private HttpService httpService;
-	private Map<String,String> header;
-	private Map<String,String> param;
-	public void setHttpService(HttpService httpService){
+	private Map<String, String> header;
+	private Map<String, String> param;
+
+	public void setHttpService(HttpService httpService) {
 		this.httpService = httpService;
 	}
-	
+
 	@PostConstruct
-	private void setInitialize(){
-		header = new HashMap<String,String>();
-		param = new HashMap<String,String>();
+	private void setInitialize() {
+		header = new HashMap<String, String>();
+		param = new HashMap<String, String>();
 		header.put("X-Naver-Client-Id", translateClientId);
 		header.put("X-Naver-Client-Secret", translateSecretId);
 	}
-	
+
 	@Override
-	public String translateSentence(String source , String target, String sentence) {
+	public String translateSentence(String source, String target, String sentence) {
 		// TODO Auto-generated method stub
-		try{
+		try {
 			param.put("source", source);
 			param.put("target", target);
 			param.put("text", sentence);
 			return parseResponse(httpService.doHttpPostByUrlencoded(translateUrl, header, param)).getTranslatedText();
-		}catch(HttpServiceException | TranslateException e){
-			throw new TranslateException(e); 
+		} catch (HttpServiceException | TranslateException e) {
+			throw new TranslateException(e);
 		}
-		
+
 	}
-	
-	private PapagoResponse parseResponse(String response) throws TranslateException{
+
+	private PapagoResponse parseResponse(String response) throws TranslateException {
 		PapagoResponse papagoResponse = null;
-		try{
-			papagoResponse  = new PapagoResponse();
-			JSONObject obj = (JSONObject)new JSONParser().parse(response);
+		try {
+			papagoResponse = new PapagoResponse();
+			JSONObject obj = (JSONObject) new JSONParser().parse(response);
 			Iterator itr = obj.keySet().iterator();
 			String key = null;
-			while(itr.hasNext()){
+			while (itr.hasNext()) {
 				key = itr.next().toString();
-				if(key.equalsIgnoreCase("message")){
-					
-					JSONObject message = (JSONObject)obj.get(key);
-					papagoResponse.setType((String)message.get("@type"));
-					papagoResponse.setService((String)message.get("@service"));
-					papagoResponse.setVersion((String)message.get("@version"));
-					
-					JSONObject result = (JSONObject)message.get("result");
-					papagoResponse.setTranslatedText((String)result.get("translatedText"));
-					papagoResponse.setSrcLangType((String)result.get("srcLangType"));
+				if (key.equalsIgnoreCase("message")) {
+
+					JSONObject message = (JSONObject) obj.get(key);
+					papagoResponse.setType((String) message.get("@type"));
+					papagoResponse.setService((String) message.get("@service"));
+					papagoResponse.setVersion((String) message.get("@version"));
+
+					JSONObject result = (JSONObject) message.get("result");
+					papagoResponse.setTranslatedText((String) result.get("translatedText"));
+					papagoResponse.setSrcLangType((String) result.get("srcLangType"));
 				}
-				
+
 			}
 			return papagoResponse;
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw new TranslateException(e);
 		}
 	}

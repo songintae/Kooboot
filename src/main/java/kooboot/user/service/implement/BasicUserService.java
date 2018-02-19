@@ -10,7 +10,7 @@ public class BasicUserService implements UserService {
 
 	private UserDao userDao;
 	private UserDataDao userDataDao;
-	
+
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
@@ -37,9 +37,7 @@ public class BasicUserService implements UserService {
 		// TODO Auto-generated method stub
 		userDao.updatdUser(user);
 		userDataDao.insertUserData(user.getReqUserData());
-		
+
 	}
-
-
 
 }

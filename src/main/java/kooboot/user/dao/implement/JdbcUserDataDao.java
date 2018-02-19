@@ -15,38 +15,36 @@ import kooboot.user.domain.UserData;
 
 public class JdbcUserDataDao implements UserDataDao {
 
-	
 	private JdbcTemplate jdbcTemplate;
 	private SqlService sqlService;
-	
-	public void setDataSource(DataSource dataSource){
+
+	public void setDataSource(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
-	
-	public void setSqlService(SqlService sqlService){
+
+	public void setSqlService(SqlService sqlService) {
 		this.sqlService = sqlService;
 	}
-	
+
 	@Override
 	public void insertUserData(UserData userData) {
 		// TODO Auto-generated method stub
-		jdbcTemplate.update(sqlService.getSql("insertUserData"),
-				userData.getUserKey(),
-				userData.getType(),
+		jdbcTemplate.update(sqlService.getSql("insertUserData"), userData.getUserKey(), userData.getType(),
 				userData.getContents());
 	}
 
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.query(sqlService.getSql("getUserDataCount"), new ResultSetExtractor<Integer>(){
+		return jdbcTemplate.query(sqlService.getSql("getUserDataCount"), new ResultSetExtractor<Integer>() {
 
 			@Override
 			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
 				// TODO Auto-generated method stub
 				rs.next();
 				return rs.getInt(1);
-			}});
+			}
+		});
 	}
 
 	@Override
@@ -54,5 +52,5 @@ public class JdbcUserDataDao implements UserDataDao {
 		// TODO Auto-generated method stub
 		jdbcTemplate.update(sqlService.getSql("deleteAllUserData"));
 	}
-	
+
 }

@@ -4,11 +4,12 @@ import kooboot.initialstate.domain.InitialstateCode;
 
 public class InitSubStatus extends SubStatus {
 	private InitialstateCode initialstate;
-	
-	public InitSubStatus(){
+
+	public InitSubStatus() {
 		super();
 		initialstate = InitialstateCode.INIT;
 	}
+
 	@Override
 	public String getStatusValue() {
 		// TODO Auto-generated method stub
