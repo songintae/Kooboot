@@ -23,6 +23,7 @@ import kooboot.translate.exception.TranslateException;
 
 public class PapagoService implements TranslateService {
 
+	//property 파일에서 필요한 정보를 받아온다.
 	@Value("${translate.url}")
 	String translateUrl;
 	@Value("${translate.clientid}")
@@ -34,12 +35,15 @@ public class PapagoService implements TranslateService {
 	private Map<String, String> header;
 	private Map<String, String> param;
 
+	//미리 만든 HttpService를 사용.
 	public void setHttpService(HttpService httpService) {
 		this.httpService = httpService;
 	}
 
+	//객체 생성후 바로 실행되는 함수.
 	@PostConstruct
 	private void setInitialize() {
+		//네이버에 RestAPI를 요청하기 위해 해더 생성.
 		header = new HashMap<String, String>();
 		param = new HashMap<String, String>();
 		header.put("X-Naver-Client-Id", translateClientId);
@@ -53,13 +57,15 @@ public class PapagoService implements TranslateService {
 			param.put("source", source);
 			param.put("target", target);
 			param.put("text", sentence);
+			//기존에 만든 HttpService를 통해 Post 방식으로 요청을 보낸다.
 			return parseResponse(httpService.doHttpPostByUrlencoded(translateUrl, header, param)).getTranslatedText();
 		} catch (HttpServiceException | TranslateException e) {
 			throw new TranslateException(e);
 		}
 
 	}
-
+	
+	//네이버 Papago API 요청을 받아와 객체로 변환해준다.
 	private PapagoResponse parseResponse(String response) throws TranslateException {
 		PapagoResponse papagoResponse = null;
 		try {

@@ -9,14 +9,9 @@ import kooboot.search.domain.Response;
 
 public class WebResponse extends Response {
 	
-	private List<WebDocument> documents = new ArrayList<WebDocument>();
-	
-	public void addDocument(WebDocument document){
-		this.documents.add(document);
-	}
 	
 	public List<WebDocument> getDocuments(){
-		return Collections.unmodifiableList(this.documents);
+		return Collections.unmodifiableList((List)documents);
 	}
 
 	@Override
@@ -25,10 +20,4 @@ public class WebResponse extends Response {
 		return new WebDocument();
 	}
 
-	@Override
-	protected void addDocument(Document arg) {
-		// TODO Auto-generated method stub
-		this.addDocument((WebDocument)arg);
-		
-	}
 }

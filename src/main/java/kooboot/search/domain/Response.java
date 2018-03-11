@@ -1,10 +1,14 @@
  package kooboot.search.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import kooboot.search.domain.keyword.KeywordDocument;
 import kooboot.search.exception.ResponseParseException;
 
 
@@ -14,6 +18,7 @@ public abstract class Response {
 	private Long pageable_count;
 	private Long total_count;
 	private boolean is_end;
+	protected List<Document> documents = new ArrayList<Document>(); 
 	
 	public Long getPageable_count() {
 		return pageable_count;
@@ -32,6 +37,21 @@ public abstract class Response {
 	}
 	public void setIs_end(boolean is_end) {
 		this.is_end = is_end;
+	}
+	
+	public void addDocument(Document arg){
+		documents.add(arg);
+	}
+	
+	public void remove(int index){
+		documents.remove(index);
+	}
+	
+	public void initializeDocuments(List<Document> documents){
+		this.documents.clear();
+		for(Document document : documents){
+			this.addDocument(document);
+		}
 	}
 	
 	public void pareseResponse(String response){
@@ -54,5 +74,5 @@ public abstract class Response {
 	}
 	
 	abstract protected Document createDocument();
-	abstract protected void addDocument(Document arg);
+	
 }

@@ -6,8 +6,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.log4j.helpers.ISO8601DateFormat;
@@ -20,6 +22,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kooboot.appcontext.AppContext;
 import kooboot.search.domain.KakaoSearchService;
+import kooboot.search.domain.Response;
+import kooboot.search.domain.book.BookDocument;
+import kooboot.search.domain.book.BookResponse;
 import kooboot.util.DateUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -40,5 +45,4 @@ public class searchTest {
 
 	}
 	
-
 }

@@ -13,7 +13,6 @@ import kooboot.util.StringUtil;
 
 public class Document {
 	
-	
 	public void pareseDocumentResponse(JSONObject response) throws ResponseParseException{
 		Iterator itr = response.keySet().iterator();
 		String key = null;
