@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.mysql.fabric.xmlrpc.base.ResponseParser;
@@ -12,6 +13,7 @@ import com.mysql.fabric.xmlrpc.base.ResponseParser;
 import kooboot.httpservice.domain.HttpService;
 import kooboot.httpservice.exception.HttpServiceException;
 import kooboot.httpservice.implement.UrlHttpService;
+import kooboot.process.exception.NotSupportedServiceException;
 import kooboot.response.domain.Message;
 import kooboot.response.domain.ResponseMessage;
 import kooboot.search.domain.keyword.KeywordResponse;
@@ -70,6 +72,21 @@ public abstract class KakaoSearchService {
 				+ "이전단계로 돌아가려면" +"\""+ SearchStrategy.SEARCH_PREVIOUS_KEYWORD +"\"" +"을 입력해주세요.\n"
 				+ "처음단계로 돌아가려면" +"\""+Constant.INIT_KEYWORD+"\"" +"을 입력해주세요.";
 		return new ResponseMessage(new Message(message),null);
+	}
+	
+	public static String getServicenameForCode(SearchCode code){
+		try{
+			if(SearchCode.WEB == code)
+				return "webSearchService";
+			else if(SearchCode.BOOK == code)
+				return "bookSearchService";
+			else if(SearchCode.KEYWORD == code)
+				return "keywordSearchService";
+			else
+				throw new NotSupportedServiceException();
+		}catch(NoSuchBeanDefinitionException e){
+			throw new NotSupportedServiceException();
+		}	
 	}
 	
 	abstract protected ResponseMessage resultMessage(Response response);

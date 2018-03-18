@@ -54,20 +54,7 @@ public class SearchStrategy implements KakaoStrategy {
 	}
 	
 	private void initializeSearchService(SearchCode code){
-		try{
-			String beanName = "";
-			if(SearchCode.WEB == code)
-				beanName = "webSearchService";
-			else if(SearchCode.BOOK == code)
-				beanName = "bookSearchService";
-			else if(SearchCode.KEYWORD == code)
-				beanName = "keywordSearchService";
-			else
-				throw new NotSupportedServiceException();
-			searchService =kakaoServiceMap.get(beanName);
-		}catch(NoSuchBeanDefinitionException e){
-			throw new NotSupportedServiceException();
-		}	
+		searchService =kakaoServiceMap.get(KakaoSearchService.getServicenameForCode(code));
 	}
 	
 	private ResponseMessage initProcess(User user) throws AssertionError{
