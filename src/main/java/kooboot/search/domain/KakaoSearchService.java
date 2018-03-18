@@ -42,8 +42,9 @@ public abstract class KakaoSearchService {
 			Map<String,String> param = new HashMap<String,String>();
 			param.put("query", keyword);
 			Response response = createResponse();
-			response.pareseResponse(httpService
-					.doHttpGet(getUrl()+UrlHttpService.makeParamByUrlEncoder(param), header));
+			String httpResponse = httpService
+					.doHttpGet(getUrl()+UrlHttpService.makeParamByUrlEncoder(param), header);
+			response.pareseResponse(httpResponse);
 			return createResponseMessage(response);
 		}catch(ResponseParseException | HttpServiceException e){
 			return errResultMessage();

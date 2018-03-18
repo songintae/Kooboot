@@ -2,6 +2,8 @@ package kooboot.sqlservice.implement;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import kooboot.sqlservice.definition.SqlReader;
 import kooboot.sqlservice.definition.SqlRegistry;
 import kooboot.sqlservice.definition.SqlService;
@@ -13,11 +15,12 @@ public class BaseSqlService implements SqlService{
 	
 	private SqlReader sqlReader;
 	private SqlRegistry sqlRegistry;
-	
+
 	
 	public void setSqlReader(SqlReader sqlReader) {
 		this.sqlReader = sqlReader;
 	}
+
 
 	public void setSqlRegistry(SqlRegistry sqlRegistry) {
 		this.sqlRegistry = sqlRegistry;

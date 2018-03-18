@@ -1,5 +1,7 @@
 package kooboot.search.implement;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -20,7 +22,7 @@ import kooboot.util.Constant;
 public class SearchStrategy implements KakaoStrategy {
 	
 	@Autowired
-	ApplicationContext appContext;
+	Map<String,KakaoSearchService> kakaoServiceMap;
 	
 	private KakaoSearchService searchService;
 	
@@ -62,12 +64,10 @@ public class SearchStrategy implements KakaoStrategy {
 				beanName = "keywordSearchService";
 			else
 				throw new NotSupportedServiceException();
-			searchService =appContext.getBean(beanName,KakaoSearchService.class);
+			searchService =kakaoServiceMap.get(beanName);
 		}catch(NoSuchBeanDefinitionException e){
 			throw new NotSupportedServiceException();
-		}
-		
-		
+		}	
 	}
 	
 	private ResponseMessage initProcess(User user) throws AssertionError{

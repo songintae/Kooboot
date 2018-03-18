@@ -12,29 +12,28 @@ import kooboot.search.exception.ResponseParseException;
 import kooboot.util.StringUtil;
 
 public class Document {
-	
-	public void pareseDocumentResponse(JSONObject response) throws ResponseParseException{
+
+	public void pareseDocumentResponse(JSONObject response) throws ResponseParseException {
 		Iterator itr = response.keySet().iterator();
 		String key = null;
-		while(itr.hasNext()){
+		while (itr.hasNext()) {
 			key = itr.next().toString();
-			if(response.get(key) instanceof JSONArray){
-				JSONArray arr = (JSONArray)response.get(key);
-				for(Object obj : arr){	
-					methodInvoke("add"+StringUtil.StringFirstUpper(key),obj.getClass(),obj);
+			if (response.get(key) instanceof JSONArray) {
+				JSONArray arr = (JSONArray) response.get(key);
+				for (Object obj : arr) {
+					methodInvoke("add" + StringUtil.StringFirstUpper(key), obj.getClass(), obj);
 				}
-			}
-			else
-				methodInvoke("set"+StringUtil.StringFirstUpper(key),response.get(key).getClass(),response.get(key));	
+			} else
+				methodInvoke("set" + StringUtil.StringFirstUpper(key), response.get(key).getClass(), response.get(key));
 		}
 	}
-	
-	private void methodInvoke(String methodName,Class<?> classes , Object argument){
-		try{
+
+	private void methodInvoke(String methodName, Class<?> classes, Object argument) {
+		try {
 			getClass().getMethod(methodName, classes).invoke(this, argument);
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw new ResponseParseException(e);
 		}
-		
+
 	}
 }

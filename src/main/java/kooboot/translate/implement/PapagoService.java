@@ -58,7 +58,9 @@ public class PapagoService implements TranslateService {
 			param.put("target", target);
 			param.put("text", sentence);
 			//기존에 만든 HttpService를 통해 Post 방식으로 요청을 보낸다.
-			return parseResponse(httpService.doHttpPostByUrlencoded(translateUrl, header, param)).getTranslatedText();
+			String response = httpService.doHttpPostByUrlencoded(translateUrl, header, param);
+			//결과를 PapagoResponse 형태로 Parsing후 반환.
+			return parseResponse(response).getTranslatedText();
 		} catch (HttpServiceException | TranslateException e) {
 			throw new TranslateException(e);
 		}
