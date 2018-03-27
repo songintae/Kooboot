@@ -1,4 +1,4 @@
-package kooboot.search.domain;
+package kooboot.search.domain.kakaosearch;
 
 import java.util.Iterator;
 
@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 
 import com.mysql.fabric.xmlrpc.base.ResponseParser;
 
-import kooboot.search.domain.book.BookDocument;
+import kooboot.search.domain.kakaosearch.book.BookDocument;
 import kooboot.search.exception.ResponseParseException;
 import kooboot.util.StringUtil;
 

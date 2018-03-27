@@ -1,6 +1,6 @@
-package kooboot.search.domain.web;
+package kooboot.search.domain.kakaosearch.web;
 
-import kooboot.search.domain.Document;
+import kooboot.search.domain.kakaosearch.Document;
 
 public class WebDocument extends Document {
 	private String datetime;

@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kooboot.appcontext.AppContext;
 import kooboot.httpservice.domain.HttpService;
-import kooboot.search.domain.keyword.KeywordResponse;
+import kooboot.search.domain.kakaosearch.keyword.KeywordResponse;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=AppContext.class)
 public class HttpServiceTest {

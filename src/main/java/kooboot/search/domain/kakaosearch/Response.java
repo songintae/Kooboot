@@ -1,4 +1,4 @@
- package kooboot.search.domain;
+ package kooboot.search.domain.kakaosearch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import kooboot.search.domain.keyword.KeywordDocument;
+import kooboot.search.domain.kakaosearch.keyword.KeywordDocument;
 import kooboot.search.exception.ResponseParseException;
 
 
@@ -18,6 +18,7 @@ public abstract class Response {
 	private Long pageable_count;
 	private Long total_count;
 	private boolean is_end;
+	private boolean is_err;
 	protected List<Document> documents = new ArrayList<Document>(); 
 	
 	public Long getPageable_count() {
@@ -37,6 +38,14 @@ public abstract class Response {
 	}
 	public void setIs_end(boolean is_end) {
 		this.is_end = is_end;
+	}
+	
+	public boolean isIs_Err(){
+		return this.is_err;
+	}
+	
+	public void setIs_Err(boolean is_err){
+		this.is_err = is_err;
 	}
 	
 	public void addDocument(Document arg){

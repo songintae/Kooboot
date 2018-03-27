@@ -1,11 +1,11 @@
-package kooboot.search.domain.web;
+package kooboot.search.domain.kakaosearch.web;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import kooboot.search.domain.Document;
-import kooboot.search.domain.Response;
+import kooboot.search.domain.kakaosearch.Document;
+import kooboot.search.domain.kakaosearch.Response;
 
 public class WebResponse extends Response {
 	

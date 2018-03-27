@@ -1,33 +1,16 @@
-package kooboot.search.implement;
+package kooboot.search.implement.parse.kakaosearch;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
-import kooboot.httpservice.domain.HttpService;
 import kooboot.response.domain.Message;
 import kooboot.response.domain.ResponseMessage;
-import kooboot.search.domain.KakaoSearchService;
-import kooboot.search.domain.Response;
-import kooboot.search.domain.keyword.KeywordResponse;
-import kooboot.search.domain.web.WebResponse;
+import kooboot.search.domain.kakaosearch.Response;
+import kooboot.search.domain.kakaosearch.web.WebResponse;
+import kooboot.search.implement.SearchStrategy;
 import kooboot.util.DateUtil;
 
-public class WebSearchService extends KakaoSearchService{
-	
-
-	@Value("${search.weburl}") String webUrl;
-	private HttpService httpService;
-	
-	public void setHttpService(HttpService httpService){
-		super.setHttpService(httpService);
-	}
-	
-	@Override
-	protected String getUrl() {
-		// TODO Auto-generated method stub
-		return this.webUrl;
-	}
-	
-	
+@Service
+public class WebSearchParser extends KakaoSearchParser {
 	@Override
 	protected ResponseMessage resultMessage(Response arg) {
 		// TODO Auto-generated method stub
@@ -46,17 +29,10 @@ public class WebSearchService extends KakaoSearchService{
 		+SearchStrategy.SEARCH_REQ_MESSAGE;
 		return new ResponseMessage(new Message(message),null);
 	}
-
-	@Override
-	protected Response createResponse() {
-		// TODO Auto-generated method stub
-		return new WebResponse();
-	}
+	
 	
 	private String replaceHtmlTagWithBlank(String value){
 		return value.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>","");
 	}
-
-	
 
 }

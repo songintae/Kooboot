@@ -21,10 +21,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kooboot.appcontext.AppContext;
-import kooboot.search.domain.KakaoSearchService;
-import kooboot.search.domain.Response;
-import kooboot.search.domain.book.BookDocument;
-import kooboot.search.domain.book.BookResponse;
+import kooboot.search.domain.kakaosearch.Response;
+import kooboot.search.domain.kakaosearch.book.BookDocument;
+import kooboot.search.domain.kakaosearch.book.BookResponse;
+import kooboot.search.implement.KakaoSearchService;
 import kooboot.util.DateUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)

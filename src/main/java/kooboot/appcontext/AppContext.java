@@ -24,11 +24,8 @@ import kooboot.prepost.implement.PostProcessService;
 import kooboot.prepost.implement.PreProcessService;
 import kooboot.process.domain.KakaoStrategy;
 import kooboot.process.implement.KakaoContext;
-import kooboot.search.domain.KakaoSearchService;
-import kooboot.search.implement.BookSearchService;
-import kooboot.search.implement.KeywordSearchService;
+import kooboot.search.implement.KakaoSearchService;
 import kooboot.search.implement.SearchStrategy;
-import kooboot.search.implement.WebSearchService;
 import kooboot.sqlservice.definition.SqlService;
 import kooboot.translate.domain.TranslateService;
 import kooboot.translate.implement.PapagoService;
@@ -50,7 +47,6 @@ import kooboot.user.service.implement.BasicUserService;
 	@PropertySource("classpath:kooboot/translate/domain/serviceinfo.properties"),
 	@PropertySource("classpath:kooboot/search/domain/serviceinfo.properties")
 })
-
 public class AppContext {
 	
 	@Value("${db.driverClass}") Class<? extends Driver> driverClass;
@@ -82,25 +78,11 @@ public class AppContext {
 		return searchStrategy;
 	}
 	
-	@Bean 
-	public KakaoSearchService keywordSearchService(){
-		KeywordSearchService keywordSearchService = new KeywordSearchService();
-		keywordSearchService.setHttpService(httpService);
-		return keywordSearchService;
-	}
-	
-	@Bean 
-	public KakaoSearchService webSearchService(){
-		WebSearchService webSearchService = new WebSearchService();
-		webSearchService.setHttpService(httpService);
-		return webSearchService;
-	}
-	
-	@Bean 
-	public KakaoSearchService bookSearchService(){
-		BookSearchService bookSearchService = new BookSearchService();
-		bookSearchService.setHttpService(httpService);
-		return bookSearchService;
+	@Bean
+	public KakaoSearchService kakaoSearchService(){
+		KakaoSearchService kakaoSearchService = new KakaoSearchService();
+		kakaoSearchService.setHttpService(httpService);
+		return kakaoSearchService;
 	}
 	
 	@Bean

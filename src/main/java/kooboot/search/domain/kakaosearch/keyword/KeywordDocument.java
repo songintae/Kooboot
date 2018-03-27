@@ -1,10 +1,10 @@
-package kooboot.search.domain.keyword;
+package kooboot.search.domain.kakaosearch.keyword;
 
 import java.util.Iterator;
 
 import org.json.simple.JSONObject;
 
-import kooboot.search.domain.Document;
+import kooboot.search.domain.kakaosearch.Document;
 import kooboot.util.StringUtil;
 
 public class KeywordDocument extends Document{

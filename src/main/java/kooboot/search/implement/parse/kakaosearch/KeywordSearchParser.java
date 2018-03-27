@@ -1,45 +1,16 @@
-package kooboot.search.implement;
+package kooboot.search.implement.parse.kakaosearch;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Value;
-
-import kooboot.httpservice.domain.HttpService;
-import kooboot.httpservice.implement.UrlHttpService;
 import kooboot.response.domain.Message;
 import kooboot.response.domain.ResponseMessage;
-import kooboot.search.domain.KakaoSearchService;
-import kooboot.search.domain.Response;
-import kooboot.search.domain.keyword.KeywordResponse;
-import kooboot.util.Constant;
+import kooboot.search.domain.kakaosearch.Response;
+import kooboot.search.domain.kakaosearch.keyword.KeywordResponse;
+import kooboot.search.implement.SearchStrategy;
 
-public class KeywordSearchService extends KakaoSearchService{
-	
-	
-	@Value("${search.keywordurl}") String keywordUrl;
-	private HttpService httpService;
-	
+@Service
+public class KeywordSearchParser extends KakaoSearchParser{
 
-	public void setHttpService(HttpService httpService){
-		super.setHttpService(httpService);
-	}
-	
-	@Override
-	protected String getUrl() {
-		// TODO Auto-generated method stub
-		return keywordUrl;
-	}
-	
-	@Override
-	protected Response createResponse() {
-		// TODO Auto-generated method stub
-		return new KeywordResponse();
-	}
-	
-	
 	@Override
 	protected ResponseMessage resultMessage(Response arg){
 		String message = "정확도 순으로 최대 5개까지 보여집니다.\n";
@@ -59,7 +30,4 @@ public class KeywordSearchService extends KakaoSearchService{
 		+SearchStrategy.SEARCH_REQ_MESSAGE;
 		return new ResponseMessage(new Message(message),null);
 	}
-
-
-
 }

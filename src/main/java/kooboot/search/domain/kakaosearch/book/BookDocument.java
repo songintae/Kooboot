@@ -1,4 +1,4 @@
-package kooboot.search.domain.book;
+package kooboot.search.domain.kakaosearch.book;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import kooboot.search.domain.Document;
+import kooboot.search.domain.kakaosearch.Document;
 import kooboot.util.StringUtil;
 
 public class BookDocument extends Document {

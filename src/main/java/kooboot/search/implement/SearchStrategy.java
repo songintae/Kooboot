@@ -12,8 +12,10 @@ import kooboot.process.exception.NotSupportedServiceException;
 import kooboot.response.domain.Keyboard;
 import kooboot.response.domain.Message;
 import kooboot.response.domain.ResponseMessage;
-import kooboot.search.domain.KakaoSearchService;
 import kooboot.search.domain.SearchCode;
+import kooboot.search.domain.kakaosearch.Response;
+import kooboot.search.domain.parse.SearchParser;
+import kooboot.search.implement.parse.kakaosearch.KakaoSearchParser;
 import kooboot.translate.domain.TranslateCode;
 import kooboot.user.domain.User;
 import kooboot.user.domain.status.StatusCode;
@@ -21,10 +23,12 @@ import kooboot.util.Constant;
 
 public class SearchStrategy implements KakaoStrategy {
 	
-	@Autowired
-	Map<String,KakaoSearchService> kakaoServiceMap;
 	
+	@Autowired
 	private KakaoSearchService searchService;
+	@Autowired
+	private Map<String,SearchParser> searchParserMap;
+	
 	
 	public static final String SEARCH_PREVIOUS_KEYWORD = "이전";
 	
@@ -53,10 +57,6 @@ public class SearchStrategy implements KakaoStrategy {
 		
 	}
 	
-	private void initializeSearchService(SearchCode code){
-		searchService =kakaoServiceMap.get(KakaoSearchService.getServicenameForCode(code));
-	}
-	
 	private ResponseMessage initProcess(User user) throws AssertionError{
 		user.setSubStatus(SearchCode.REQ.getValue());
 		return getInitMessage();
@@ -73,8 +73,11 @@ public class SearchStrategy implements KakaoStrategy {
 			user.setSubStatus(SearchCode.REQ.getValue());
 			return initProcess(user);
 		} else{
-			initializeSearchService(SearchCode.valueOfCode(user.getSubStatusValue()));
-			return searchService.doSearchRequest(user.getReqUserData().getContents());
+			Response kakaoResponse = searchService.doSearchRequest(
+					SearchCode.valueOfCode(user.getSubStatusValue())
+					,user.getReqUserData().getContents());
+			return selectSearchParser(SearchCode.valueOfCode(user.getSubStatusValue()))
+					.parseSearchResult(kakaoResponse);
 		}
 	}
 	
@@ -97,5 +100,9 @@ public class SearchStrategy implements KakaoStrategy {
 		keyboard.addButton(SearchCode.SEARCH_CATAGORY_BOOK);
 		keyboard.addButton(SearchCode.SEARCH_CATAGORY_KEYWORD);
 		return keyboard;
+	}
+	
+	private SearchParser selectSearchParser(SearchCode code){
+		return searchParserMap.get(KakaoSearchParser.getServicenameForCode(code));
 	}
 }
