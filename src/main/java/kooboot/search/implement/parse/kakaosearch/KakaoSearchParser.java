@@ -1,6 +1,7 @@
 package kooboot.search.implement.parse.kakaosearch;
 
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.context.annotation.Bean;
 
 import kooboot.process.exception.NotSupportedServiceException;
 import kooboot.response.domain.Message;

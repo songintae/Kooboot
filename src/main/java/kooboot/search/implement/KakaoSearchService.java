@@ -25,8 +25,11 @@ public class KakaoSearchService {
 	@Value("${search.weburl}") private String webUrl;
 	@Value("${search.bookurl}") private String bookUrl;
 	@Value("${search.keywordurl}") private String keywordUrl;
+	
 	private Map<String, String> header;
 	private HttpService httpService;
+	private String url;
+	private Response response;
 	
 	public void setHttpService(HttpService httpService){
 		this.httpService = httpService;
@@ -41,13 +44,12 @@ public class KakaoSearchService {
 
 	public Response doSearchRequest(SearchCode searchCode, String keyword) {
 		// TODO Auto-generated method stub
-		Response response = null;
 		try{
-			response = createResponse(searchCode);
+			initializePropertyBySerchCode(searchCode);
 			Map<String,String> param = new HashMap<String,String>();
 			param.put("query", keyword);
 			String httpResponse = httpService.doHttpGet(
-					getUrl(searchCode)+UrlHttpService.makeParamByUrlEncoder(param)
+					url+UrlHttpService.makeParamByUrlEncoder(param)
 					, header);
 			response.pareseResponse(httpResponse);
 		}catch(ResponseParseException | HttpServiceException | IllegalArgumentException e){
@@ -57,25 +59,17 @@ public class KakaoSearchService {
 		
 	}
 	
-	private Response createResponse(SearchCode code){
-		if(SearchCode.WEB == code)
-			return new WebResponse();
-		else if(SearchCode.BOOK == code)
-			return new BookResponse();
-		else if(SearchCode.KEYWORD == code)
-			return new KeywordResponse();
-		else
-			throw new IllegalArgumentException("Invalid code : " + code.getValue());
-	}
-	
-	private String getUrl(SearchCode code){
-		if(SearchCode.WEB == code)
-			return webUrl;
-		else if(SearchCode.BOOK == code)
-			return bookUrl;
-		else if(SearchCode.KEYWORD == code)
-			return keywordUrl;
-		else
+	private void initializePropertyBySerchCode(SearchCode code){
+		if(SearchCode.WEB == code){
+			response = new WebResponse();
+			url = webUrl;
+		}else if(SearchCode.BOOK == code){
+			response = new BookResponse();
+			url = bookUrl;
+		}else if(SearchCode.KEYWORD == code){
+			response = new KeywordResponse();
+			url = keywordUrl;
+		}else
 			throw new IllegalArgumentException("Invalid code : " + code.getValue());
 	}
 	
