@@ -2,7 +2,7 @@ package kooboot.initialstate.implement;
 
 
 import kooboot.initialstate.domain.InitialstateCode;
-import kooboot.process.domain.KakaoStrategy;
+import kooboot.process.domain.KakaoHandler;
 import kooboot.process.domain.StrategyResult;
 import kooboot.response.domain.Keyboard;
 import kooboot.response.domain.Message;
@@ -10,11 +10,11 @@ import kooboot.response.domain.ResponseMessage;
 import kooboot.user.domain.User;
 import kooboot.util.Constant;
 
-public class InitialstateStrategy implements KakaoStrategy {
+public class InitialstateHandler implements KakaoHandler {
 	public final String INITIAL_DELAY_TEXT = "입력시간 5분이 경과했습니다. 처음부터 다시 시작해주세요.";
 	public final String INITIAL_INIT_TEXT = "시작 메뉴 입니다.";
 	@Override
-	public StrategyResult doProcessSerivce(User user) {
+	public StrategyResult execute(User user) {
 		// TODO Auto-generated method stub
 		ResponseMessage responsMessage = new ResponseMessage();
 		responsMessage.setKeyboard(getinitialKeyboard());

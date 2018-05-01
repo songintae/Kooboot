@@ -1,11 +1,13 @@
 package kooboot.process.implement;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import kooboot.prepost.implement.PostProcessService;
 import kooboot.prepost.implement.PreProcessService;
-import kooboot.process.domain.KakaoStrategy;
+import kooboot.process.domain.KakaoHandler;
 import kooboot.process.domain.StrategyResult;
 import kooboot.process.exception.NotSupportedServiceException;
 import kooboot.request.domain.RequestMessage;
@@ -17,17 +19,17 @@ import kooboot.user.domain.status.Status;
 import kooboot.user.domain.status.StatusCode;
 import kooboot.util.Constant;
 
-public class KakaoContext {
+public class KakaoProcess {
 	
 	
-	@Autowired
-	private ApplicationContext appContext;
 	@Autowired
 	private PreProcessService preProcess;
 	@Autowired 
 	private PostProcessService postProcess;
 	
-	private KakaoStrategy strategy;
+	@Autowired
+	private Map<String,KakaoHandler> handlers;
+	
 	private final String NOT_SUPPROTED_SERVICE_TEXT = "이 기능은 지원하지 않는 기능입니다.\n 처음부터 다시 시작해 주십시오.";
 	
 	//Template  메서드
@@ -38,7 +40,7 @@ public class KakaoContext {
 			//선 처리.
 			user = preProcess.preProcess(requestMessage);
 			//변하는 부분.(Strategy)
-			result = doStretegyProcess(user);
+			result = excuteActionAndGetResponse(user);
 			//결과 return
 			user = result.getUser();
 			return result.getResponseMessage();
@@ -52,24 +54,23 @@ public class KakaoContext {
 		}
 	}
 	
-	private StrategyResult doStretegyProcess(User user){
-		initializeStrategy(user.getStatusCode());
-		return strategy.doProcessSerivce(user);
+	private StrategyResult excuteActionAndGetResponse(User user){
+		KakaoHandler handler = lookupHandlerBy(user.getStatusCode()); 
+		return handler.execute(user);
 	}
 	
-	private void initializeStrategy(StatusCode code){
-		String beanName = "";
+	private KakaoHandler lookupHandlerBy(StatusCode code){
+		String handlerName = "";
 		//사용자 상태에 따라 전략 선택.
 		if(StatusCode.INIT == code)
-			beanName = "initialstateStrategy";
+			handlerName = "initialstateStrategy";
 		else if(StatusCode.TRANSLATE == code)
-			beanName = "translateStrategy";
+			handlerName = "translateStrategy";
 		else if(StatusCode.SEARCH == code)
-			beanName = "searchStrategy";
+			handlerName = "searchStrategy";
 		else
 			throw new NotSupportedServiceException();
-		
-		strategy =appContext.getBean(beanName,KakaoStrategy.class);
+		return handlers.get(handlerName);
 	}
 	
 	private ResponseMessage notSupportedServiceResponse(){

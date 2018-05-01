@@ -19,17 +19,17 @@ import com.mysql.jdbc.Driver;
 import kooboot.httpservice.domain.HttpService;
 import kooboot.httpservice.implement.UrlHttpService;
 import kooboot.httpservice.implement.UrlHttpTemplate;
-import kooboot.initialstate.implement.InitialstateStrategy;
+import kooboot.initialstate.implement.InitialstateHandler;
 import kooboot.prepost.implement.PostProcessService;
 import kooboot.prepost.implement.PreProcessService;
-import kooboot.process.domain.KakaoStrategy;
-import kooboot.process.implement.KakaoContext;
+import kooboot.process.domain.KakaoHandler;
+import kooboot.process.implement.KakaoProcess;
 import kooboot.search.implement.KakaoSearchService;
-import kooboot.search.implement.SearchStrategy;
+import kooboot.search.implement.SearchHandler;
 import kooboot.sqlservice.definition.SqlService;
 import kooboot.translate.domain.TranslateService;
 import kooboot.translate.implement.PapagoService;
-import kooboot.translate.implement.TranslateStrategy;
+import kooboot.translate.implement.TranslateHandler;
 import kooboot.user.dao.domain.UserDao;
 import kooboot.user.dao.domain.UserDataDao;
 import kooboot.user.dao.implement.JdbcUserDao;
@@ -50,9 +50,9 @@ import kooboot.user.service.implement.BasicUserService;
 public class AppContext {
 	
 	@Value("${db.driverClass}") Class<? extends Driver> driverClass;
-	@Value("${db.url}") String url;
-	@Value("${db.username}") String username;
-	@Value("${db.password}") String password;
+	@Value("${db.testurl}") String url;
+	@Value("${db.testusername}") String username;
+	@Value("${db.testpassword}") String password;
 	
 	
 	@Autowired
@@ -62,19 +62,19 @@ public class AppContext {
 	HttpService httpService;
 	
 	@Bean
-	public KakaoContext kakaoContext(){
-		return new KakaoContext();
+	public KakaoProcess kakaoContext(){
+		return new KakaoProcess();
 	}
 	
 	
 	@Bean
-	public KakaoStrategy initialstateStrategy(){
-		return new InitialstateStrategy();
+	public KakaoHandler initialstateStrategy(){
+		return new InitialstateHandler();
 	}
 	
 	@Bean
-	public KakaoStrategy searchStrategy(){
-		SearchStrategy searchStrategy = new SearchStrategy();
+	public KakaoHandler searchStrategy(){
+		SearchHandler searchStrategy = new SearchHandler();
 		return searchStrategy;
 	}
 	
@@ -86,8 +86,8 @@ public class AppContext {
 	}
 	
 	@Bean
-	public KakaoStrategy translateStrategy(){
-		TranslateStrategy translateStrategy = new TranslateStrategy();
+	public KakaoHandler translateStrategy(){
+		TranslateHandler translateStrategy = new TranslateHandler();
 		translateStrategy.setTranslateService(translateService());
 		return translateStrategy;
 	}

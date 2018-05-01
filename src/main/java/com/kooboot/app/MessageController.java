@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kooboot.httpservice.domain.HttpService;
 import kooboot.prepost.implement.PostProcessService;
 import kooboot.prepost.implement.PreProcessService;
-import kooboot.process.implement.KakaoContext;
+import kooboot.process.implement.KakaoProcess;
 import kooboot.request.domain.RequestMessage;
 import kooboot.response.domain.Message;
 import kooboot.response.domain.ResponseMessage;
@@ -27,7 +27,7 @@ public class MessageController {
 	
 	
 	@Autowired
-	KakaoContext kakaoContext;
+	KakaoProcess kakaoContext;
 	
 	@RequestMapping(value = "/message", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	public @ResponseBody ResponseMessage message(@RequestBody RequestMessage requestMessage) throws Exception { 

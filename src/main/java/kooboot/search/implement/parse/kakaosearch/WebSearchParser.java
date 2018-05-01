@@ -6,7 +6,7 @@ import kooboot.response.domain.Message;
 import kooboot.response.domain.ResponseMessage;
 import kooboot.search.domain.kakaosearch.Response;
 import kooboot.search.domain.kakaosearch.web.WebResponse;
-import kooboot.search.implement.SearchStrategy;
+import kooboot.search.implement.SearchHandler;
 import kooboot.util.DateUtil;
 
 @Service
@@ -26,7 +26,7 @@ public class WebSearchParser extends KakaoSearchParser {
 			message += entry;
 		}
 		message += "\n\n"
-		+SearchStrategy.SEARCH_REQ_MESSAGE;
+		+SearchHandler.SEARCH_REQ_MESSAGE;
 		return new ResponseMessage(new Message(message),null);
 	}
 	
